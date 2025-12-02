@@ -1,0 +1,23 @@
+[project]
+name = "cvrp-drl-ga"
+version = "0.1.0"
+description = "CVRP solver using Deep Reinforcement Learning and Genetic Algorithms"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi[standard]>=0.123.0",
+    "uvicorn>=0.38.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "numpy>=1.26.0",
+    "matplotlib>=3.8.0",
+    "torch>=2.1.0",
+    "vrplib>=1.0.0",
+    "python-multipart>=0.0.6",
+    "requests>=2.32.5",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.14.7",
+]
