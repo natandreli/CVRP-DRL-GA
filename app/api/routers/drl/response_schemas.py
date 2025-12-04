@@ -15,6 +15,7 @@ class TrainingSpecs(BaseModel):
 class ModelInfo(BaseModel):
     id: str
     name: str
+    subname: Optional[str] = None
     description: Optional[str] = None
     training_summary: Optional[str] = None
     training_specs: Optional[TrainingSpecs] = None

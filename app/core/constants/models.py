@@ -1,6 +1,7 @@
 MODELS = {
     "junior": {
-        "name": "Junior Level Agent (Last-Mile Delivery)",
+        "name": "Junior Level Agent",
+        "subname": "Last-Mile Delivery",
         "description": (
             "Specialized in local courier services such as food delivery, pharmacy runs, "
             "and local parcels. Designed for small-scale operations (15-50 customers) "
@@ -23,7 +24,8 @@ MODELS = {
         },
     },
     "mid": {
-        "name": "Mid-Level Agent (Regional Distribution)",
+        "name": "Mid-Level Agent",
+        "subname": "Regional Distribution",
         "description": (
             "Optimized for regional courier services and cross-city logistics. "
             "Handles medium-scale operations (40-100 customers) with vehicles "
@@ -47,7 +49,8 @@ MODELS = {
         },
     },
     "expert": {
-        "name": "Expert Level Agent (Industrial-Scale Logistics)",
+        "name": "Expert Level Agent",
+        "subname": "Industrial-Scale Logistics",
         "description": (
             "Tailored for large-scale logistics operations such as those of Amazon Prime, "
             "handling extensive delivery networks with 80-150 customers and vehicle capacities of 180-250. "

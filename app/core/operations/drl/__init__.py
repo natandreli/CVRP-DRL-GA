@@ -23,6 +23,7 @@ def get_models() -> GetModelsResponse:
             ModelInfo(
                 id=model_id,
                 name=config["name"],
+                subname=config["subname"],
                 description=config["description"],
                 training_summary=config["training_summary"],
                 training_specs=config["training_specs"],
