@@ -5,7 +5,11 @@ from app.api.routers.solve.response_schemas import (
     ComparisonResponse,
 )
 from app.core.operations.solve import run_comparision
-from app.exceptions import ModelLoadException, ModelNotFoundException
+from app.exceptions import (
+    InstanceParseException,
+    ModelLoadException,
+    ModelNotFoundException,
+)
 
 router = APIRouter(
     prefix="/solve",
@@ -24,6 +28,11 @@ router = APIRouter(
 def handle_run_comparison(request: ComparisonRequest):
     try:
         return run_comparision(request)
+    except InstanceParseException as e:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Instance '{e.filename}' not found: {e.reason}",
+        )
     except ModelNotFoundException as e:
         raise HTTPException(
             status_code=404,
