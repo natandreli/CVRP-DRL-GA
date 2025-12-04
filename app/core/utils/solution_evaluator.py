@@ -102,15 +102,12 @@ def evaluate_solution(
     Returns:
         Solution: Solution updated with metrics and validation results
     """
-    # Calculate metrics for each route
     for route in solution.routes:
         update_route_metrics(route, instance, distance_matrix)
 
-    # Calculate total cost
     routes_with_depot = [[0] + r.customer_sequence + [0] for r in solution.routes]
     solution.total_cost = calculate_solution_cost(routes_with_depot, distance_matrix)
 
-    # Validate
     is_valid, message = validate_solution(solution, instance)
     solution.is_valid = is_valid
 
