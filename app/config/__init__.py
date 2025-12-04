@@ -11,18 +11,13 @@ class Settings(BaseSettings):
     API_TITLE: str = "NeuroGen CVRP Backend"
     API_DESCRIPTION: str = "Backend API for CVRP solving using Deep Reinforcement Learning and Genetic Algorithms"
     API_VERSION: str = "0.1.0"
+    API_ROOT_PATH: str = "/api"
     DEBUG: bool = False
 
     # Paths
     BASE_DIR: Path = Path(__file__).parent.parent.parent
-    DATA_DIR: Path = BASE_DIR / "data"
-    SOLOMON_DIR: Path = DATA_DIR / "solomon"
-    INSTANCES_DIR: Path = DATA_DIR / "instances"
-    SOLUTIONS_DIR: Path = DATA_DIR / "solutions"
-    MODELS_DIR: Path = BASE_DIR / "models" / "drl"
-    RESULTS_DIR: Path = BASE_DIR / "results"
-    PLOTS_DIR: Path = RESULTS_DIR / "plots"
-    METRICS_DIR: Path = RESULTS_DIR / "metrics"
+    INSTANCES_DIR: Path = BASE_DIR / "instances"
+    CHECKPOINTS_DIR: Path = BASE_DIR / "app" / "core" / "drl" / "checkpoints"
 
     # DRL Settings
     DRL_DEVICE: str = "cpu"  # "cuda" if gpu is available else "cpu"
@@ -65,13 +60,7 @@ settings = get_settings()
 
 # Create directories if they don't exist
 for directory in [
-    settings.DATA_DIR,
-    settings.SOLOMON_DIR,
     settings.INSTANCES_DIR,
-    settings.SOLUTIONS_DIR,
-    settings.MODELS_DIR,
-    settings.RESULTS_DIR,
-    settings.PLOTS_DIR,
-    settings.METRICS_DIR,
+    settings.CHECKPOINTS_DIR,
 ]:
     directory.mkdir(parents=True, exist_ok=True)
