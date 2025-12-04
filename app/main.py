@@ -7,6 +7,7 @@ from app.api.routers.instances import router as instances_router
 from app.api.routers.solve import router as solve_router
 from app.config import settings
 from app.lifespan import lifespan
+from app.middleware import SessionMiddleware
 
 app = FastAPI(
     title=settings.API_TITLE,
@@ -16,6 +17,7 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.add_middleware(SessionMiddleware, secret_key=settings.SECRET_KEY)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,

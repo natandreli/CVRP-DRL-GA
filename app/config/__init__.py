@@ -14,6 +14,9 @@ class Settings(BaseSettings):
     API_ROOT_PATH: str = "/api"
     DEBUG: bool = False
 
+    # Security
+    SECRET_KEY: str = "your-secret-key-change-in-production"
+
     # Paths
     BASE_DIR: Path = Path(__file__).parent.parent.parent
     INSTANCES_DIR: Path = BASE_DIR / "app" / "instances"  # User-generated (temporary)
@@ -41,6 +44,9 @@ class Settings(BaseSettings):
 
     # CORS
     CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost", "*"]
+
+    # Session Management
+    SESSION_MAX_AGE_HOURS: int = 24
 
     # Logging
     LOGGING_LEVEL: str = "INFO"
