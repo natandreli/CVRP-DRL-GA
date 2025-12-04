@@ -31,15 +31,15 @@ def calculate_distance_matrix(instance: CVRPInstance) -> np.ndarray:
     Returns:
         numpy.ndarray: Distance matrix (n+1 x n+1) where n is the number of customers
     """
-    n = instance.num_customers + 1  # +1 for the depot
-    distance_matrix = np.zeros((n, n))
+    num_customers = instance.num_customers + 1  # +1 for the depot
+    distance_matrix = np.zeros((num_customers, num_customers))
 
     # List of all locations (depot + customers)
     all_locations = [instance.depot] + [c.location for c in instance.customers]
 
     # Calculate distances
-    for i in range(n):
-        for j in range(i + 1, n):
+    for i in range(num_customers):
+        for j in range(i + 1, num_customers):
             dist = calculate_euclidean_distance(all_locations[i], all_locations[j])
             distance_matrix[i][j] = dist
             distance_matrix[j][i] = dist  # Symmetric
