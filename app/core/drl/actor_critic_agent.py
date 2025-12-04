@@ -1,6 +1,6 @@
 import random
 import time
-from typing import Callable, Optional
+from typing import Callable, List, Optional, Tuple
 
 import numpy as np
 import torch
@@ -38,9 +38,9 @@ class ActorCriticAgent:
 
         self.network = ActorCriticNetwork(
             customer_feature_dim=self.customer_feature_dim,
-            embedding_dim=128,
-            hidden_dim=128,
-            num_layers=1,
+            embedding_dim=256,
+            hidden_dim=256,
+            num_layers=2,
             dropout=0.1,
         ).to(self.device)
 
@@ -89,6 +89,22 @@ class ActorCriticAgent:
 
         return features
 
+    def _get_mask_from_state(self, state: np.ndarray) -> torch.Tensor:
+        """
+        Reconstruct mask from state history for training stability.
+        Index 0 of customer data is 'visited' (1.0 if visited, 0.0 otherwise).
+
+        Args:
+            state (np.ndarray): State from environment
+
+        Returns:
+            Mask tensor (torch.Tensor): [1, num_customers] - True for visited
+        """
+        num_customers = self.env.num_customers
+        visited_status = state[3:].reshape(num_customers, 5)[:, 0]
+        mask = torch.tensor(visited_status, dtype=torch.bool, device=self.device)
+        return mask.unsqueeze(0)
+
     def _get_mask(self, valid_actions: list[int]) -> torch.Tensor:
         """
         Create mask for invalid actions.
@@ -134,10 +150,9 @@ class ActorCriticAgent:
         # Epsilon-greedy exploration
         if explore and random.random() < self.epsilon:
             action = random.choice(valid_actions)
-
             customer_features = self._state_to_customer_features(state)
             mask = self._get_mask(valid_actions)
-            decoder_input = torch.zeros(1, 1, 128, device=self.device)
+            decoder_input = torch.zeros(1, 1, 256, device=self.device)
 
             with torch.no_grad():
                 probs, log_probs, hidden_new = self.network.forward_actor(
@@ -149,16 +164,19 @@ class ActorCriticAgent:
         # Greedy: use policy
         customer_features = self._state_to_customer_features(state)
         mask = self._get_mask(valid_actions)
-        decoder_input = torch.zeros(1, 1, 128, device=self.device)
+        decoder_input = torch.zeros(1, 1, 256, device=self.device)
 
-        with torch.no_grad():
-            probs, log_probs, hidden_new = self.network.forward_actor(
-                customer_features, decoder_input, hidden, mask
-            )
+        probs, log_probs, hidden_new = self.network.forward_actor(
+            customer_features, decoder_input, hidden, mask
+        )
 
         # Sample from policy
-        action_idx = torch.multinomial(probs, 1).item()
-        action = action_idx + 1  # Convert to customer ID
+        if explore:
+            action_idx = torch.multinomial(probs, 1).item()
+        else:
+            action_idx = torch.argmax(probs, dim=1).item()
+
+        action = action_idx + 1
 
         return action, probs, log_probs, hidden_new
 
@@ -179,6 +197,8 @@ class ActorCriticAgent:
         if len(states) == 0:
             return
 
+        self.network.train()
+
         # Compute returns (discounted cumulative rewards)
         returns = []
         G = 0
@@ -193,64 +213,59 @@ class ActorCriticAgent:
             returns = (returns - returns.mean()) / (returns.std() + 1e-8)
 
         # Train on trajectory
-        actor_loss_total = 0
-        critic_loss_total = 0
+        total_actor_loss = 0
+        # Train on trajectory
+        total_actor_loss = 0
+        total_critic_loss = 0
 
         hidden = self.network.init_hidden(1, self.device)
 
         for i, (state, action) in enumerate(zip(states, actions)):
             # Get features
             customer_features = self._state_to_customer_features(state)
+            mask = self._get_mask_from_state(state)
 
-            # Critic: predict value
+            # Critic
             value = self.network.forward_critic(customer_features)
-
-            # Advantage: return - value
             advantage = returns[i] - value.squeeze()
+            total_critic_loss += advantage.pow(2)
 
-            # Critic loss: MSE
-            critic_loss = advantage.pow(2)
-
-            # Actor: get action probabilities
-            valid_actions = self.env.get_valid_actions()
-            if not valid_actions:
-                continue
-
-            mask = self._get_mask(valid_actions)
-            decoder_input = torch.zeros(1, 1, 128, device=self.device)
-
+            # Actor
+            decoder_input = torch.zeros(1, 1, 256, device=self.device)
             probs, log_probs, hidden = self.network.forward_actor(
                 customer_features, decoder_input, hidden, mask
             )
 
-            # Actor loss: policy gradient with advantage
             action_idx = action - 1
             log_prob = log_probs[0, action_idx]
-            actor_loss = -log_prob * advantage.detach()
 
-            # Backprop Actor
-            self.optimizer_actor.zero_grad()
-            actor_loss.backward(retain_graph=True)
-            torch.nn.utils.clip_grad_norm_(self.network.actor.parameters(), 1.0)
-            self.optimizer_actor.step()
+            # Actor Loss with entropy bonus for exploration
+            entropy = -(probs * torch.log(probs + 1e-8)).sum()
+            actor_loss = -log_prob * advantage.detach() - 0.01 * entropy
+            total_actor_loss += actor_loss
 
-            # Backprop Critic
-            self.optimizer_critic.zero_grad()
-            critic_loss.backward()
-            torch.nn.utils.clip_grad_norm_(
-                list(self.network.critic_embedding.parameters())
-                + list(self.network.critic_lstm.parameters())
-                + list(self.network.critic_value.parameters()),
-                1.0,
-            )
-            self.optimizer_critic.step()
+        # Backprop Actor
+        avg_actor_loss = total_actor_loss / len(states)
+        avg_critic_loss = total_critic_loss / len(states)
+        self.optimizer_actor.zero_grad()
+        avg_actor_loss.backward()  # No retain_graph needed anymore
+        torch.nn.utils.clip_grad_norm_(self.network.actor.parameters(), 1.0)
+        self.optimizer_actor.step()
 
-            actor_loss_total += actor_loss.item()
-            critic_loss_total += critic_loss.item()
+        # Update Critic
+        self.optimizer_critic.zero_grad()
+        avg_critic_loss.backward()
+        torch.nn.utils.clip_grad_norm_(
+            list(self.network.critic_embedding.parameters())
+            + list(self.network.critic_lstm.parameters())
+            + list(self.network.critic_value.parameters()),
+            1.0,
+        )
+        self.optimizer_critic.step()
 
-        if len(states) > 0:
-            self.actor_losses.append(actor_loss_total / len(states))
-            self.critic_losses.append(critic_loss_total / len(states))
+        # Log metrics
+        self.actor_losses.append(avg_actor_loss.item())
+        self.critic_losses.append(avg_critic_loss.item())
 
     def train(self, episodes: Optional[int] = None) -> dict:
         """
@@ -266,6 +281,7 @@ class ActorCriticAgent:
             episodes = self.config.episodes
 
         start_time = time.time()
+        self.network.train()
 
         for episode in range(episodes):
             state = self.env.reset()
@@ -331,6 +347,48 @@ class ActorCriticAgent:
             else 0,
         }
 
+    def solve(self, instance: CVRPInstance) -> Tuple[float, List[int]]:
+        """
+        Solve a specific instance deterministically (Greedy).
+        Used for validation during training. No gradients are calculated.
+
+        Args:
+            instance: The CVRP instance to solve.
+
+        Returns:
+            Tuple[float, List[int]]: (Total Cost, Sequence of actions)
+        """
+        self.instance = instance
+        self.env = CVRPEnvironment(instance)
+        state = self.env.reset()
+
+        self.network.eval()
+
+        hidden = self.network.init_hidden(1, self.device)
+        actions_taken = []
+
+        with torch.no_grad():
+            while True:
+                valid_actions = self.env.get_valid_actions()
+                if not valid_actions:
+                    break
+
+                action, _, _, hidden = self.select_action(
+                    state, valid_actions, hidden, explore=False
+                )
+
+                state, _, done, _ = self.env.step(action)
+                actions_taken.append(action)
+
+                if done:
+                    break
+
+        total_cost = self.env.total_distance
+
+        self.network.train()
+
+        return total_cost, actions_taken
+
     def generate_solution(self, explore: bool = False) -> Solution:
         """
         Generate solution using trained policy.
@@ -342,20 +400,24 @@ class ActorCriticAgent:
             Solution: Generated CVRP solution
         """
         state = self.env.reset()
+        self.network.eval()
         hidden = self.network.init_hidden(1, self.device)
 
-        while True:
-            valid_actions = self.env.get_valid_actions()
-            if not valid_actions:
-                break
+        with torch.no_grad():
+            while True:
+                valid_actions = self.env.get_valid_actions()
+                if not valid_actions:
+                    break
 
-            action, probs, log_probs, hidden = self.select_action(
-                state, valid_actions, hidden, explore=explore
-            )
-            state, reward, done, info = self.env.step(action)
+                action, probs, log_probs, hidden = self.select_action(
+                    state, valid_actions, hidden, explore=explore
+                )
+                state, reward, done, info = self.env.step(action)
 
-            if done:
-                break
+                if done:
+                    break
+
+        self.network.train()
 
         # Convert to Solution
         solution_routes = []
