@@ -10,7 +10,9 @@ class DRLConfig(BaseModel):
 
     # Training settings
     episodes: int = Field(
-        default=settings.DRL_DEFAULT_EPISODES, gt=0, description="Number of episodes"
+        default=settings.DRL_DEFAULT_EPISODES,
+        ge=0,
+        description="Number of episodes (0 for inference mode)",
     )
     learning_rate_actor: float = Field(
         default=settings.DRL_DEFAULT_LR, gt=0, description="Learning rate (Actor)"
