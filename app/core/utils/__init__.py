@@ -11,10 +11,6 @@ from app.core.utils.distance_calculator import (
     calculate_route_distance,
     calculate_solution_cost,
 )
-from app.core.utils.instance_generator import (
-    generate_clustered_instance,
-    generate_random_instance,
-)
 from app.core.utils.solution_evaluator import (
     evaluate_solution,
     update_route_metrics,
@@ -36,8 +32,6 @@ __all__ = [
     "calculate_euclidean_distance",
     "calculate_route_distance",
     "calculate_solution_cost",
-    "generate_clustered_instance",
-    "generate_random_instance",
     "evaluate_solution",
     "update_route_metrics",
     "validate_solution",
