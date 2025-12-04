@@ -11,8 +11,8 @@ def generate_random_instance(
     num_customers: int = 20,
     grid_size: int = 100,
     vehicle_capacity: int = 100,
-    min_demand: int = 5,
-    max_demand: int = 30,
+    min_customer_demand: int = 5,
+    max_customer_demand: int = 30,
     seed: Optional[int] = None,
 ) -> CVRPInstance:
     """
@@ -22,8 +22,8 @@ def generate_random_instance(
         num_customers (int): Number of customers
         grid_size (int): Size of the grid (0,0) to (grid_size, grid_size)
         vehicle_capacity (int): Vehicle capacity
-        min_demand (int): Minimum customer demand
-        max_demand (int): Maximum customer demand
+        min_customer_demand (int): Minimum customer demand
+        max_customer_demand (int): Maximum customer demand
         seed (Optional[int]): Seed for reproducibility
 
     Returns:
@@ -43,7 +43,8 @@ def generate_random_instance(
             x=random.uniform(0, grid_size),
             y=random.uniform(0, grid_size),
         )
-        demand = random.randint(min_demand, max_demand)
+
+        demand = random.randint(min_customer_demand, max_customer_demand)
 
         customer = Customer(
             id=i,
@@ -59,6 +60,9 @@ def generate_random_instance(
     return CVRPInstance(
         id=instance_id,
         name=f"Synthetic Random: {num_customers} customers, Q={vehicle_capacity}",
+        description=f"Synthetic random CVRP instance with {num_customers} customers and a "
+        f"vehicle capacity of {vehicle_capacity}. Generated using seed {seed}, "
+        f"with customer demands ranging from {min_customer_demand} to {max_customer_demand}.",
         depot=depot,
         customers=customers,
         vehicle_capacity=vehicle_capacity,
@@ -68,9 +72,11 @@ def generate_random_instance(
 
 def generate_clustered_instance(
     num_customers: int = 20,
-    num_clusters: int = 3,
     grid_size: int = 100,
+    num_clusters: int = 3,
     vehicle_capacity: int = 100,
+    min_customer_demand: int = 5,
+    max_customer_demand: int = 30,
     seed: Optional[int] = None,
 ) -> CVRPInstance:
     """
@@ -78,9 +84,11 @@ def generate_clustered_instance(
 
     Args:
         num_customers (int): Number of customers
-        num_clusters (int): Number of clusters
         grid_size (int): Size of the grid (0,0) to (grid_size, grid_size)
+        num_clusters (int): Number of clusters
         vehicle_capacity (int): Vehicle capacity
+        min_customer_demand (int): Minimum customer demand
+        max_customer_demand (int): Maximum customer demand
         seed (Optional[int]): Seed for reproducibility
 
     Returns:
@@ -118,7 +126,7 @@ def generate_clustered_instance(
                 y=max(0, min(grid_size, cluster_center.y + offset_y)),
             )
 
-            demand = random.randint(5, 30)
+            demand = random.randint(min_customer_demand, max_customer_demand)
 
             customer = Customer(
                 id=customer_id,
@@ -135,7 +143,8 @@ def generate_clustered_instance(
             x=random.uniform(0, grid_size),
             y=random.uniform(0, grid_size),
         )
-        demand = random.randint(5, 30)
+
+        demand = random.randint(min_customer_demand, max_customer_demand)
 
         customer = Customer(
             id=customer_id,
@@ -152,6 +161,10 @@ def generate_clustered_instance(
     return CVRPInstance(
         id=instance_id,
         name=f"Synthetic Clustered: {num_customers} customers, {num_clusters} clusters, Q={vehicle_capacity}",
+        description=f"Synthetic clustered CVRP instance with {num_customers} customers "
+        f"distributed across {num_clusters} clusters and a vehicle capacity of "
+        f"{vehicle_capacity}. Generated using seed {seed}, with customer demands "
+        f"ranging from {min_customer_demand} to {max_customer_demand}.",
         depot=depot,
         customers=customers,
         vehicle_capacity=vehicle_capacity,
