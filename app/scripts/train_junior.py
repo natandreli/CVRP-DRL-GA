@@ -78,10 +78,11 @@ def train_junior_agent():
     print()
 
     validation_set = []
-    for i in range(5):
+    validation_sizes = [15, 20, 25, 30, 32, 35, 38, 42, 46, 50]
+    for i, num_cust in enumerate(validation_sizes):
         validation_set.append(
             generate_random_instance(
-                num_customers=30,
+                num_customers=num_cust,
                 grid_size=75,
                 vehicle_capacity=90,
                 min_customer_demand=gen_params["min_dem"],

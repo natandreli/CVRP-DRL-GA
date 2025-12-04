@@ -85,11 +85,11 @@ def train_expert_agent():
     print()
 
     validation_set = []
-    # Using average parameters for validation set
-    for i in range(5):
+    validation_sizes = [80, 90, 100, 110, 118, 126, 133, 140, 145, 150]
+    for i, num_cust in enumerate(validation_sizes):
         validation_set.append(
             generate_clustered_instance(  # Validate mainly on clustered (primary scenario)
-                num_customers=115,  # Average size
+                num_customers=num_cust,
                 grid_size=225,
                 vehicle_capacity=215,
                 min_customer_demand=gen_params["min_dem"],

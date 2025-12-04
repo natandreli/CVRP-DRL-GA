@@ -79,11 +79,11 @@ def train_mid_agent():
     print()
 
     validation_set = []
-    # Using average parameters for validation set
-    for i in range(5):
+    validation_sizes = [40, 48, 55, 62, 68, 74, 80, 86, 93, 100]
+    for i, num_cust in enumerate(validation_sizes):
         validation_set.append(
             generate_random_instance(
-                num_customers=70,  # Average size
+                num_customers=num_cust,
                 grid_size=150,
                 vehicle_capacity=150,
                 min_customer_demand=gen_params["min_dem"],
