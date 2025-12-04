@@ -13,7 +13,11 @@ from app.config.logging import logger
 from app.core.drl.actor_critic_agent import ActorCriticAgent
 from app.core.drl.population_generator import generate_population_with_drl
 from app.core.ga.genetic_algorithm import GeneticAlgorithm
-from app.exceptions import ModelLoadException, ModelNotFoundException
+from app.core.operations.instances import load_instance_by_id
+from app.exceptions import (
+    ModelLoadException,
+    ModelNotFoundException,
+)
 from app.schemas import DRLConfig
 
 
@@ -30,7 +34,10 @@ def run_comparision(request: ComparisonRequest) -> ComparisonResponse:
     Raises:
         ModelNotFoundException: If the specified model doesn't exist
         ModelLoadException: If the model fails to load
+        InstanceParseException: If the instance cannot be loaded
     """
+    instance = load_instance_by_id(request.instance_id)
+
     model_path = settings.CHECKPOINTS_DIR / f"{request.drl_model_id}.pth"
     if not model_path.exists():
         raise ModelNotFoundException(request.drl_model_id)
@@ -47,11 +54,11 @@ def run_comparision(request: ComparisonRequest) -> ComparisonResponse:
         episodes=0,  # Not training
         device="cpu",
     )
-    agent = ActorCriticAgent(request.instance, drl_config)
+    agent = ActorCriticAgent(instance, drl_config)
 
     try:
-        agent.actor_critic.load_state_dict(checkpoint["model_state_dict"])
-        agent.actor_critic.eval()
+        agent.network.load_state_dict(checkpoint["network"])
+        agent.network.eval()
         agent.epsilon = 0.0
     except Exception as e:
         raise ModelLoadException(request.drl_model_id, f"Invalid weights: {str(e)}")
@@ -60,7 +67,7 @@ def run_comparision(request: ComparisonRequest) -> ComparisonResponse:
     logger.info(f"Generating DRL population with {request.drl_model_id}...")
     start_time = time.time()
     drl_population = generate_population_with_drl(
-        instance=request.instance,
+        instance=instance,
         agent=agent,
         population_size=request.ga_config.population_size,
         diversity=0.2,
@@ -69,7 +76,7 @@ def run_comparision(request: ComparisonRequest) -> ComparisonResponse:
 
     logger.info("Running GA with DRL population (NeuroGen)...")
     ga_neurogen = GeneticAlgorithm(
-        instance=request.instance,
+        instance=instance,
         config=request.ga_config,
     )
     ga_neurogen.initialize_population(custom_population=drl_population)
@@ -79,12 +86,12 @@ def run_comparision(request: ComparisonRequest) -> ComparisonResponse:
     solution_neurogen = ga_neurogen.run(custom_population=drl_population)
     neurogen_time = time.time() - start_time + drl_gen_time
     logger.info(
-        f"NeuroGen completed in {neurogen_time:.2f}s: {solution_neurogen.total_distance:.2f}"
+        f"NeuroGen completed in {neurogen_time:.2f}s: {solution_neurogen.total_cost:.2f}"
     )
 
     logger.info("Running GA with random population (pure GA)...")
     ga_pure = GeneticAlgorithm(
-        instance=request.instance,
+        instance=instance,
         config=request.ga_config,
     )
     ga_pure.initialize_population(use_heuristics=False)
@@ -94,13 +101,11 @@ def run_comparision(request: ComparisonRequest) -> ComparisonResponse:
     solution_pure = ga_pure.run(use_heuristics=False)
     pure_time = time.time() - start_time
     logger.info(
-        f"Pure GA completed in {pure_time:.2f}s: {solution_pure.total_distance:.2f}"
+        f"Pure GA completed in {pure_time:.2f}s: {solution_pure.total_cost:.2f}"
     )
 
-    improvement_absolute = (
-        solution_pure.total_distance - solution_neurogen.total_distance
-    )
-    improvement_percentage = (improvement_absolute / solution_pure.total_distance) * 100
+    improvement_absolute = solution_pure.total_cost - solution_neurogen.total_cost
+    improvement_percentage = (improvement_absolute / solution_pure.total_cost) * 100
     time_difference = neurogen_time - pure_time
     initial_gap = (
         (initial_pure_best - initial_neurogen_best) / initial_pure_best
@@ -109,7 +114,7 @@ def run_comparision(request: ComparisonRequest) -> ComparisonResponse:
 
     winner = (
         "neurogen"
-        if solution_neurogen.total_distance < solution_pure.total_distance
+        if solution_neurogen.total_cost < solution_pure.total_cost
         else "ga_pure"
     )
     if abs(improvement_percentage) < 0.5:
