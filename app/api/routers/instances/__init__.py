@@ -5,6 +5,7 @@ from app.api.routers.instances.payload_schemas import (
     GenerateRandomInstanceRequest,
 )
 from app.core.operations.instances import (
+    delete_instance,
     generate_clustered_instance,
     generate_random_instance,
     get_all_instances,
@@ -89,4 +90,26 @@ async def handle_upload_instance(file: UploadFile, request: Request):
         raise HTTPException(
             status_code=500,
             detail=f"Unexpected error uploading file: {str(e)}",
+        )
+
+
+@router.delete(
+    "/{instance_id}",
+    description="Delete a user-generated instance. Presets cannot be deleted.",
+    status_code=204,
+)
+def handle_delete_instance(instance_id: str, request: Request):
+    try:
+        session_id = request.state.session_id
+        delete_instance(instance_id, session_id=session_id)
+        return None
+    except InstanceParseException as e:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Instance '{e.filename}' not found: {e.reason}",
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to delete instance: {str(e)}",
         )
