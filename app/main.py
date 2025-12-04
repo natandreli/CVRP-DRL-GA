@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routers import router as root_router
+from app.api.routers.drl import router as drl_router
+from app.api.routers.instances import router as instances_router
+from app.api.routers.solve import router as solve_router
 from app.config import settings
 from app.lifespan import lifespan
 
@@ -9,6 +12,7 @@ app = FastAPI(
     title=settings.API_TITLE,
     description=settings.API_DESCRIPTION,
     version=settings.API_VERSION,
+    root_path=settings.API_ROOT_PATH,
     lifespan=lifespan,
 )
 
@@ -20,11 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-# Health check endpoint for the backend
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy", "service": "backend"}
-
-
 app.include_router(root_router, prefix="/api")
+app.include_router(instances_router)
+app.include_router(drl_router)
+app.include_router(solve_router)
