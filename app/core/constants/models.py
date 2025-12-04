@@ -19,7 +19,7 @@ MODELS = {
             "instance_distribution": "60% Random / 40% Clustered",
             "problem_size": "15-50 Customers",
             "learning_strategy": "Fast learning rate with moderate exploration decay (0.9996)",
-            "validation_method": "Deterministic greedy solution on fixed benchmark set",
+            "validation_method": "Greedy evaluation on graduated benchmark set (15-50 nodes)",
         },
     },
     "mid": {
@@ -42,7 +42,7 @@ MODELS = {
             "instance_distribution": "50% Random / 50% Clustered",
             "problem_size": "40-100 Customers",
             "learning_strategy": "Moderate learning rate with slower exploration decay (0.9998)",
-            "validation_method": "Deterministic greedy solution on fixed benchmark set",
+            "validation_method": "Greedy evaluation on graduated benchmark set (40-100 nodes)",
         },
     },
     "expert": {
@@ -63,7 +63,7 @@ MODELS = {
             "instance_distribution": "20% Random / 80% Clustered",
             "problem_size": "80-150 Customers",
             "learning_strategy": "Slow learning rate with minimal exploration decay (0.9999)",
-            "validation_method": "Deterministic greedy solution on comprehensive benchmark set",
+            "validation_method": "Greedy evaluation on comprehensive benchmark set (80-150 nodes)",
         },
     },
 }
