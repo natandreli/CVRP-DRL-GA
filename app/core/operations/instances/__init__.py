@@ -39,6 +39,7 @@ def save_instance(instance: CVRPInstance) -> str:
 def load_instance_by_id(instance_id: str) -> CVRPInstance:
     """
     Load a CVRP instance by its ID/filename.
+    Searches in both temporary instances and permanent presets.
 
     Args:
         instance_id: Instance identifier (filename without extension)
@@ -49,57 +50,59 @@ def load_instance_by_id(instance_id: str) -> CVRPInstance:
     Raises:
         InstanceParseException: If instance cannot be found or loaded
     """
-    instances_dir = settings.INSTANCES_DIR
+    for directory in [settings.INSTANCES_DIR, settings.PRESETS_DIR]:
+        json_path = directory / f"{instance_id}.json"
+        if json_path.exists():
+            try:
+                with open(json_path, "r") as f:
+                    data = json.load(f)
+                    return CVRPInstance(**data)
+            except Exception as e:
+                raise InstanceParseException(instance_id, str(e))
 
-    json_path = instances_dir / f"{instance_id}.json"
-    if json_path.exists():
-        try:
-            with open(json_path, "r") as f:
-                data = json.load(f)
-                return CVRPInstance(**data)
-        except Exception as e:
-            raise InstanceParseException(instance_id, str(e))
+        vrp_path = directory / f"{instance_id}.vrp"
+        if vrp_path.exists():
+            try:
+                return load_vrplib_instance(str(vrp_path))
+            except Exception as e:
+                raise InstanceParseException(instance_id, str(e))
 
-    vrp_path = instances_dir / f"{instance_id}.vrp"
-    if vrp_path.exists():
-        try:
-            return load_vrplib_instance(str(vrp_path))
-        except Exception as e:
-            raise InstanceParseException(instance_id, str(e))
-
-    raise InstanceParseException(instance_id, f"Instance not found in {instances_dir}")
+    raise InstanceParseException(
+        instance_id,
+        f"Instance not found in {settings.INSTANCES_DIR} or {settings.PRESETS_DIR}",
+    )
 
 
 def get_instances() -> list[CVRPInstance]:
     """
-    List all available CVRP instance presets.
+    List all available CVRP instances (both temporary and presets).
 
     Returns:
-        list[CVRPInstance]: List of preset CVRP instances
+        list[CVRPInstance]: List of all CVRP instances
     """
-    presets = []
-    instances_dir = settings.INSTANCES_DIR
+    instances = []
 
-    if not instances_dir.exists():
-        return presets
-
-    for file_path in instances_dir.glob("*.json"):
-        try:
-            with open(file_path, "r") as f:
-                data = json.load(f)
-                instance = CVRPInstance(**data)
-                presets.append(instance)
-        except Exception:
+    for directory in [settings.INSTANCES_DIR, settings.PRESETS_DIR]:
+        if not directory.exists():
             continue
 
-    for file_path in instances_dir.glob("*.vrp"):
-        try:
-            instance = load_vrplib_instance(str(file_path))
-            presets.append(instance)
-        except Exception:
-            continue
+        for file_path in directory.glob("*.json"):
+            try:
+                with open(file_path, "r") as f:
+                    data = json.load(f)
+                    instance = CVRPInstance(**data)
+                    instances.append(instance)
+            except Exception:
+                continue
 
-    return presets
+        for file_path in directory.glob("*.vrp"):
+            try:
+                instance = load_vrplib_instance(str(file_path))
+                instances.append(instance)
+            except Exception:
+                continue
+
+    return instances
 
 
 def generate_random_instance(params: GenerateRandomInstanceRequest) -> CVRPInstance:
