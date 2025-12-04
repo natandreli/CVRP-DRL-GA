@@ -22,13 +22,13 @@ class GenerateRandomInstanceRequest(BaseModel):
         example=100,
         gt=1,
     )
-    min_demand: int = Field(
+    min_customer_demand: int = Field(
         5,
         description="Minimum customer demand.",
         example=5,
         gt=1,
     )
-    max_demand: int = Field(
+    max_customer_demand: int = Field(
         30,
         description="Maximum customer demand.",
         example=30,
