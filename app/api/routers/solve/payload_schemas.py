@@ -1,13 +1,13 @@
 from pydantic import BaseModel, Field
 
-from app.schemas import CVRPInstance, GAConfig
+from app.schemas import GAConfig
 
 
 class ComparisonRequest(BaseModel):
-    instance: CVRPInstance = Field(
+    instance_id: str = Field(
         ...,
-        description="CVRP instance to solve.",
-        example="instance_001",
+        description="ID of the CVRP instance to solve (without extension).",
+        example="synthetic_20c_100q_random_s42",
     )
     ga_config: GAConfig = Field(
         ...,
