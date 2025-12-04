@@ -142,6 +142,43 @@ def get_all_instances(session_id: str | None = None) -> list[CVRPInstance]:
     return instances
 
 
+def delete_instance(instance_id: str, session_id: str | None = None) -> bool:
+    """
+    Delete a CVRP instance from the session directory.
+    Presets cannot be deleted (only user-generated instances).
+
+    Args:
+        instance_id: Instance identifier (filename without extension)
+        session_id: Optional session identifier for isolation
+
+    Returns:
+        bool: True if deleted successfully
+
+    Raises:
+        InstanceParseException: If instance not found or is a preset
+    """
+    if not session_id:
+        raise InstanceParseException(
+            instance_id, "Cannot delete instances without a session"
+        )
+
+    session_dir = _get_session_dir(session_id)
+
+    # Try JSON first
+    json_path = session_dir / f"{instance_id}.json"
+    if json_path.exists():
+        json_path.unlink()
+        return True
+
+    # Try VRP format
+    vrp_path = session_dir / f"{instance_id}.vrp"
+    if vrp_path.exists():
+        vrp_path.unlink()
+        return True
+
+    raise InstanceParseException(instance_id, "Instance not found in your session")
+
+
 def generate_random_instance(
     params: GenerateRandomInstanceRequest, session_id: str | None = None
 ) -> CVRPInstance:
