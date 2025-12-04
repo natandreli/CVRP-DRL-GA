@@ -19,7 +19,7 @@ import numpy as np
 from app.config import settings
 from app.core.drl.actor_critic_agent import ActorCriticAgent
 from app.core.drl.cvrp_environment import CVRPEnvironment
-from app.core.utils.instance_generator import (
+from app.core.operations.instances import (
     generate_clustered_instance,
     generate_random_instance,
 )

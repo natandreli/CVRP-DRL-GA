@@ -4,12 +4,11 @@ from app.api.routers.instances.payload_schemas import (
     GenerateClusteredInstanceRequest,
     GenerateRandomInstanceRequest,
 )
-from app.core.operations.instances import get_presets, upload_instance
-from app.core.utils.instance_generator import (
-    generate_clustered_instance as generate_clustered,
-)
-from app.core.utils.instance_generator import (
-    generate_random_instance as generate_random,
+from app.core.operations.instances import (
+    generate_clustered_instance,
+    generate_random_instance,
+    get_instances,
+    upload_instance,
 )
 from app.exceptions import InstanceParseException, UnsupportedFileFormatException
 from app.schemas.cvrp_instance import CVRPInstance
@@ -21,17 +20,17 @@ router = APIRouter(
 
 
 @router.get(
-    "/presets",
-    description="List all available instance presets.",
+    "/instances",
+    description="List all available instances.",
     response_model=list[CVRPInstance],
 )
-def handle_get_presets():
+def handle_get_instances():
     try:
-        return get_presets()
+        return get_instances()
     except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail=f"Failed to load presets: {str(e)}",
+            detail=f"Failed to load instances: {str(e)}",
         )
 
 
@@ -42,15 +41,7 @@ def handle_get_presets():
 )
 def handle_generate_random_instance(request: GenerateRandomInstanceRequest):
     try:
-        instance = generate_random(
-            num_customers=request.num_customers,
-            grid_size=request.grid_size,
-            vehicle_capacity=request.vehicle_capacity,
-            min_customer_demand=request.min_demand,
-            max_customer_demand=request.max_demand,
-            seed=request.seed,
-        )
-        return instance
+        return generate_random_instance(request)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -63,16 +54,7 @@ def handle_generate_random_instance(request: GenerateRandomInstanceRequest):
 def handle_generate_clustered_instance(request: GenerateClusteredInstanceRequest):
     """Generate a clustered CVRP instance."""
     try:
-        instance = generate_clustered(
-            num_customers=request.num_customers,
-            grid_size=request.grid_size,
-            num_clusters=request.num_clusters,
-            vehicle_capacity=request.vehicle_capacity,
-            min_customer_demand=request.min_demand,
-            max_customer_demand=request.max_demand,
-            seed=request.seed,
-        )
-        return instance
+        return generate_clustered_instance(request)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
