@@ -9,6 +9,8 @@ Characteristics:
 - Urban/suburban environment with moderate clustering
 - Small vehicles (vans, small trucks)
 - Quick learning required for dynamic environments
+
+run with: `python -m app.scripts.drl.train_junior`
 """
 
 import random

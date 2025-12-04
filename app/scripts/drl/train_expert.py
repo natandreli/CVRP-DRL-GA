@@ -10,6 +10,8 @@ Characteristics:
 - Large trucks with high capacity
 - Conservative learning for stability and fine optimization
 - Long training for superior performance
+
+run with: `python -m app.scripts.drl.train_expert`
 """
 
 import random

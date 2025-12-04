@@ -10,6 +10,8 @@ Characteristics:
 - Mix of urban, suburban, and some rural areas
 - Medium trucks with good capacity
 - Balanced exploration and exploitation
+
+run with: `python -m app.scripts.drl.train_mid`
 """
 
 import random
