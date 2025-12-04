@@ -16,7 +16,8 @@ class Settings(BaseSettings):
 
     # Paths
     BASE_DIR: Path = Path(__file__).parent.parent.parent
-    INSTANCES_DIR: Path = BASE_DIR / "app" / "instances"
+    INSTANCES_DIR: Path = BASE_DIR / "app" / "instances"  # User-generated (temporary)
+    PRESETS_DIR: Path = BASE_DIR / "app" / "data" / "presets"  # Predefined (permanent)
     CHECKPOINTS_DIR: Path = BASE_DIR / "app" / "core" / "drl" / "checkpoints"
 
     # DRL Settings
