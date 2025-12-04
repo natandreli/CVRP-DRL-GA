@@ -26,6 +26,7 @@ class CVRPInstance(BaseModel):
 
     id: str = Field(..., description="Unique identifier of the instance")
     name: str = Field(..., description="Name of the instance")
+    description: Optional[str] = Field(None, description="Description of the instance")
     depot: Location = Field(..., description="Location of the depot")
     customers: list[Customer] = Field(..., description="List of customers")
     vehicle_capacity: int = Field(..., gt=0, description="Vehicle capacity")
