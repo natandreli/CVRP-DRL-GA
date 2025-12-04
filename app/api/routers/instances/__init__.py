@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, UploadFile
+from fastapi import APIRouter, HTTPException, Request, UploadFile
 
 from app.api.routers.instances.payload_schemas import (
     GenerateClusteredInstanceRequest,
@@ -7,7 +7,7 @@ from app.api.routers.instances.payload_schemas import (
 from app.core.operations.instances import (
     generate_clustered_instance,
     generate_random_instance,
-    get_instances,
+    get_all_instances,
     upload_instance,
 )
 from app.exceptions import InstanceParseException, UnsupportedFileFormatException
@@ -20,13 +20,14 @@ router = APIRouter(
 
 
 @router.get(
-    "/instances",
+    "/all",
     description="List all available instances.",
     response_model=list[CVRPInstance],
 )
-def handle_get_instances():
+def handle_get_all_instances(request: Request):
     try:
-        return get_instances()
+        session_id = request.state.session_id
+        return get_all_instances(session_id=session_id)
     except Exception as e:
         raise HTTPException(
             status_code=500,
@@ -39,9 +40,12 @@ def handle_get_instances():
     description="Generate a CVRP instance with randomly distributed customers.",
     response_model=CVRPInstance,
 )
-def handle_generate_random_instance(request: GenerateRandomInstanceRequest):
+def handle_generate_random_instance(
+    params: GenerateRandomInstanceRequest, request: Request
+):
     try:
-        return generate_random_instance(request)
+        session_id = request.state.session_id
+        return generate_random_instance(params, session_id=session_id)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -51,10 +55,13 @@ def handle_generate_random_instance(request: GenerateRandomInstanceRequest):
     description="Generate a CVRP instance with clustered customer distributions.",
     response_model=CVRPInstance,
 )
-def handle_generate_clustered_instance(request: GenerateClusteredInstanceRequest):
+def handle_generate_clustered_instance(
+    params: GenerateClusteredInstanceRequest, request: Request
+):
     """Generate a clustered CVRP instance."""
     try:
-        return generate_clustered_instance(request)
+        session_id = request.state.session_id
+        return generate_clustered_instance(params, session_id=session_id)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -64,9 +71,10 @@ def handle_generate_clustered_instance(request: GenerateClusteredInstanceRequest
     description="Upload a CVRP instance file.",
     response_model=CVRPInstance,
 )
-async def handle_upload_instance(file: UploadFile):
+async def handle_upload_instance(file: UploadFile, request: Request):
     try:
-        return await upload_instance(file)
+        session_id = request.state.session_id
+        return await upload_instance(file, session_id=session_id)
     except UnsupportedFileFormatException as e:
         raise HTTPException(
             status_code=400,

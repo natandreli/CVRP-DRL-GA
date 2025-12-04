@@ -1,6 +1,7 @@
 import json
 import random
 from datetime import datetime
+from pathlib import Path
 
 import numpy as np
 from fastapi import UploadFile
@@ -15,20 +16,37 @@ from app.exceptions import InstanceParseException, UnsupportedFileFormatExceptio
 from app.schemas.cvrp_instance import Customer, CVRPInstance, Location
 
 
-def save_instance(instance: CVRPInstance) -> str:
+def _get_session_dir(session_id: str | None) -> Path:
     """
-    Save a CVRP instance to disk as JSON.
+    Get the directory for a specific session.
+
+    Args:
+        session_id: Session identifier (None for shared/preset instances)
+
+    Returns:
+        Path: Directory path for the session
+    """
+    if session_id:
+        return settings.INSTANCES_DIR / session_id
+    return settings.INSTANCES_DIR / "shared"
+
+
+def save_instance(instance: CVRPInstance, session_id: str | None = None) -> str:
+    """
+    Save a CVRP instance to disk as JSON in session-specific directory.
 
     Args:
         instance: CVRP instance to save
+        session_id: Optional session identifier for isolation
 
     Returns:
         str: Path where the instance was saved
     """
-    settings.INSTANCES_DIR.mkdir(parents=True, exist_ok=True)
+    session_dir = _get_session_dir(session_id)
+    session_dir.mkdir(parents=True, exist_ok=True)
 
     filename = f"{instance.id}.json"
-    filepath = settings.INSTANCES_DIR / filename
+    filepath = session_dir / filename
 
     with open(filepath, "w") as f:
         json.dump(instance.model_dump(), f, indent=2)
@@ -36,13 +54,16 @@ def save_instance(instance: CVRPInstance) -> str:
     return str(filepath)
 
 
-def load_instance_by_id(instance_id: str) -> CVRPInstance:
+def load_instance_by_id(
+    instance_id: str, session_id: str | None = None
+) -> CVRPInstance:
     """
     Load a CVRP instance by its ID/filename.
-    Searches in both temporary instances and permanent presets.
+    Searches in session-specific directory first, then presets.
 
     Args:
         instance_id: Instance identifier (filename without extension)
+        session_id: Optional session identifier for isolation
 
     Returns:
         CVRPInstance: Loaded instance
@@ -50,7 +71,15 @@ def load_instance_by_id(instance_id: str) -> CVRPInstance:
     Raises:
         InstanceParseException: If instance cannot be found or loaded
     """
-    for directory in [settings.INSTANCES_DIR, settings.PRESETS_DIR]:
+    directories = []
+    if session_id:
+        directories.append(_get_session_dir(session_id))
+    directories.append(settings.PRESETS_DIR)
+
+    for directory in directories:
+        if not directory.exists():
+            continue
+
         json_path = directory / f"{instance_id}.json"
         if json_path.exists():
             try:
@@ -69,23 +98,31 @@ def load_instance_by_id(instance_id: str) -> CVRPInstance:
 
     raise InstanceParseException(
         instance_id,
-        f"Instance not found in {settings.INSTANCES_DIR} or {settings.PRESETS_DIR}",
+        "Instance not found in session or presets",
     )
 
 
-def get_instances() -> list[CVRPInstance]:
+def get_all_instances(session_id: str | None = None) -> list[CVRPInstance]:
     """
-    List all available CVRP instances (both temporary and presets).
+    List all available CVRP instances for a session (session instances + presets).
+
+    Args:
+        session_id: Optional session identifier for isolation
 
     Returns:
-        list[CVRPInstance]: List of all CVRP instances
+        list[CVRPInstance]: List of CVRP instances visible to this session
     """
     instances = []
 
-    for directory in [settings.INSTANCES_DIR, settings.PRESETS_DIR]:
-        if not directory.exists():
-            continue
+    directories = []
+    if session_id:
+        session_dir = _get_session_dir(session_id)
+        if session_dir.exists():
+            directories.append(session_dir)
+    if settings.PRESETS_DIR.exists():
+        directories.append(settings.PRESETS_DIR)
 
+    for directory in directories:
         for file_path in directory.glob("*.json"):
             try:
                 with open(file_path, "r") as f:
@@ -105,12 +142,15 @@ def get_instances() -> list[CVRPInstance]:
     return instances
 
 
-def generate_random_instance(params: GenerateRandomInstanceRequest) -> CVRPInstance:
+def generate_random_instance(
+    params: GenerateRandomInstanceRequest, session_id: str | None = None
+) -> CVRPInstance:
     """
     Generate a random CVRP instance based on the provided parameters.
 
     Args:
         params: Parameters for generating the random instance
+        session_id: Optional session identifier for isolation
 
     Returns:
         CVRPInstance: Generated CVRP instance
@@ -155,19 +195,20 @@ def generate_random_instance(params: GenerateRandomInstanceRequest) -> CVRPInsta
         max_vehicles=None,  # Unlimited fleet
     )
 
-    save_instance(instance)
+    save_instance(instance, session_id=session_id)
 
     return instance
 
 
 def generate_clustered_instance(
-    params: GenerateClusteredInstanceRequest,
+    params: GenerateClusteredInstanceRequest, session_id: str | None = None
 ) -> CVRPInstance:
     """
     Generate a clustered CVRP instance based on the provided parameters.
 
     Args:
         params: Parameters for generating the clustered instance
+        session_id: Optional session identifier for isolation
 
     Returns:
         CVRPInstance: Generated CVRP instance
@@ -250,7 +291,7 @@ def generate_clustered_instance(
         max_vehicles=None,  # Unlimited fleet
     )
 
-    save_instance(instance)
+    save_instance(instance, session_id=session_id)
 
     return instance
 

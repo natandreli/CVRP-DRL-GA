@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 
 from app.api.routers.solve.payload_schemas import ComparisonRequest
 from app.api.routers.solve.response_schemas import (
@@ -25,9 +25,10 @@ router = APIRouter(
     ),
     response_model=ComparisonResponse,
 )
-def handle_run_comparison(request: ComparisonRequest):
+def handle_run_comparison(params: ComparisonRequest, request: Request):
     try:
-        return run_comparision(request)
+        session_id = request.state.session_id
+        return run_comparision(params, session_id=session_id)
     except InstanceParseException as e:
         raise HTTPException(
             status_code=404,

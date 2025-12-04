@@ -21,12 +21,15 @@ from app.exceptions import (
 from app.schemas import DRLConfig
 
 
-def run_comparision(request: ComparisonRequest) -> ComparisonResponse:
+def run_comparision(
+    request: ComparisonRequest, session_id: str | None = None
+) -> ComparisonResponse:
     """
     Run comparison between NeuroGen (GA + DRL) and pure GA.
 
     Args:
         request (ComparisonRequest): Comparison request parameters
+        session_id (str | None): Optional session identifier for instance isolation
 
     Returns:
         ComparisonResponse: Results of the comparison
@@ -36,7 +39,7 @@ def run_comparision(request: ComparisonRequest) -> ComparisonResponse:
         ModelLoadException: If the model fails to load
         InstanceParseException: If the instance cannot be loaded
     """
-    instance = load_instance_by_id(request.instance_id)
+    instance = load_instance_by_id(request.instance_id, session_id=session_id)
 
     model_path = settings.CHECKPOINTS_DIR / f"{request.drl_model_id}.pth"
     if not model_path.exists():
