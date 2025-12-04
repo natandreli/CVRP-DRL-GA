@@ -40,7 +40,7 @@ def handle_get_presets():
     description="Generate a CVRP instance with randomly distributed customers.",
     response_model=CVRPInstance,
 )
-def handle_enerate_random_instance(request: GenerateRandomInstanceRequest):
+def handle_generate_random_instance(request: GenerateRandomInstanceRequest):
     try:
         instance = generate_random(
             num_customers=request.num_customers,
