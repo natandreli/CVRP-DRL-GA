@@ -10,10 +10,10 @@ from app.api.routers.solve.response_schemas import (
 )
 from app.config import settings
 from app.config.logging import logger
-from app.core import ModelLoadException, ModelNotFoundException
 from app.core.drl.actor_critic_agent import ActorCriticAgent
 from app.core.drl.population_generator import generate_population_with_drl
 from app.core.ga.genetic_algorithm import GeneticAlgorithm
+from app.exceptions import ModelLoadException, ModelNotFoundException
 from app.schemas import DRLConfig
 
 
