@@ -11,7 +11,7 @@ MODELS = {
             "Trained over 4,000 episodes using an Actor-Critic architecture with Pointer Networks. "
             "The training strategy utilized a 60/40 split between random and clustered instances "
             "to ensure robustness against unpredictable delivery locations while learning neighborhood patterns. "
-            "Validation was performed against a fixed benchmark set to ensure generalization capability."
+            "Validation was performed against a graduated benchmark set (15-50 nodes) to ensure generalization capability across the full difficulty range."
         ),
         "training_specs": {
             "algorithm": "Actor-Critic with Pointer Network",
@@ -32,9 +32,10 @@ MODELS = {
         ),
         "training_summary": (
             "Trained over 6,000 episodes using an Actor-Critic architecture with Pointer Networks. "
-            "The training strategy employed a balanced 50/50 split between random and clustered instances "
-            "to effectively manage diverse geographical distributions while learning regional patterns. "
-            "Validation was conducted on a fixed benchmark set to ensure the agent's adaptability."
+            "The training utilized a 50/50 split between random and clustered instances to capture "
+            "diverse regional layouts. Crucially, validation was performed against a comprehensive "
+            "benchmark set spanning the entire problem size range (40 to 100 customers) to ensure "
+            "consistent performance across all difficulty levels."
         ),
         "training_specs": {
             "algorithm": "Actor-Critic with Pointer Network",
@@ -49,13 +50,13 @@ MODELS = {
         "name": "Expert Level Agent (Industrial-Scale Logistics)",
         "description": (
             "Tailored for large-scale logistics operations such as those of Amazon Prime, "
-            "handling extensive delivery networks with 80-150 customers and vehicle capacities of 150-200. "
+            "handling extensive delivery networks with 80-150 customers and vehicle capacities of 180-250. "
             "Designed for complex, multi-regional distribution requiring advanced route optimization."
         ),
         "training_summary": (
             "Trained over 8,000 episodes using an Actor-Critic architecture with Pointer Networks. "
             "The training incorporated a 20/80 split between random and clustered instances to capture both broad and localized delivery patterns. "
-            "Validation was performed on a comprehensive benchmark set to ensure high scalability and efficiency."
+            "Validation was performed on a comprehensive graduated benchmark set (80-150 nodes) to ensure high scalability and efficiency."
         ),
         "training_specs": {
             "algorithm": "Actor-Critic with Pointer Network",
@@ -63,7 +64,7 @@ MODELS = {
             "instance_distribution": "20% Random / 80% Clustered",
             "problem_size": "80-150 Customers",
             "learning_strategy": "Slow learning rate with minimal exploration decay (0.9999)",
-            "validation_method": "Greedy evaluation on comprehensive benchmark set (80-150 nodes)",
+            "validation_method": "Greedy evaluation on graduated benchmark set (80-150 nodes)",
         },
     },
 }
