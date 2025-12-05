@@ -1,7 +1,8 @@
 {
   "id": "preset_expert_random_100",
-  "name": "Expert Random - 100 customers",
-  "description": "Large random instance for industrial logistics (100 customers)",
+  "type": "preset",
+  "name": "Expert Random",
+  "description": "Large random instance for industrial logistics.",
   "depot": {
     "x": 100.0,
     "y": 100.0

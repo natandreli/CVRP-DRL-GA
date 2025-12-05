@@ -1,7 +1,8 @@
 {
   "id": "preset_junior_random_25",
-  "name": "Junior Random - 25 customers",
-  "description": "Small random instance for local delivery scenarios (25 customers)",
+  "type": "preset",
+  "name": "Junior Random",
+  "description": "Small random instance for local delivery scenarios.",
   "depot": {
     "x": 50.0,
     "y": 50.0

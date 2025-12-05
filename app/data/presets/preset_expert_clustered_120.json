@@ -1,7 +1,8 @@
 {
   "id": "preset_expert_clustered_120",
-  "name": "Expert Clustered - 120 customers (5 regions)",
-  "description": "Clustered instance for multi-region supply chain (120 customers, 5 regions)",
+  "type": "preset",
+  "name": "Expert Clustered",
+  "description": "Clustered instance for multi-region supply chain (5 zones).",
   "depot": {
     "x": 100.0,
     "y": 100.0

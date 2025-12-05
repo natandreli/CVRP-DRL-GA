@@ -1,7 +1,8 @@
 {
   "id": "preset_mid_random_50",
-  "name": "Mid Random - 50 customers",
-  "description": "Medium random instance for regional distribution (50 customers)",
+  "type": "preset",
+  "name": "Mid Random",
+  "description": "Medium random instance for regional distribution.",
   "depot": {
     "x": 75.0,
     "y": 75.0
