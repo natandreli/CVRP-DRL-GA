@@ -35,12 +35,12 @@ class GAConfig(BaseModel):
     )
     tournament_size: int = Field(
         default=settings.GA_TOURNAMENT_SIZE,
-        gt=0,
+        gt=1,
         description="Tournament size (if selection_method='tournament')",
     )
     elitism_count: int = Field(
         default=settings.GA_ELITISM_COUNT,
-        ge=0,
+        ge=1,
         description="Number of top individuals to preserve (elitism)",
     )
     crossover_method: Literal["ox", "pmx", "edge"] = Field(
