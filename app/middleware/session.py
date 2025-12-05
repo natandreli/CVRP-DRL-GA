@@ -62,8 +62,8 @@ class SessionMiddleware(BaseHTTPMiddleware):
                 key=self.cookie_name,
                 value=signed_session,
                 httponly=True,
-                secure=not settings.DEBUG,
-                samesite="lax",
+                secure=False,
+                samesite="none" if not settings.DEBUG else "lax",
                 max_age=settings.SESSION_MAX_AGE_HOURS * 3600,
             )
 
