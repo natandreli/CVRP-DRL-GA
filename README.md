@@ -205,7 +205,7 @@ Trained models are saved in `app/core/drl/checkpoints/`
 
 ## 📄 License
 
-MIT
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ## 👥 Authors
 
