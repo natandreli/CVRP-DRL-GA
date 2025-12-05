@@ -224,9 +224,9 @@ def generate_random_instance(
         id=instance_id,
         type="generated",
         name="Synthetic Random",
-        description=f"Synthetic random CVRP instance with {params.num_customers} customers and a "
-        f"vehicle capacity of {params.vehicle_capacity}. Generated using seed {params.seed}, "
-        f"with customer demands ranging from {params.min_customer_demand} to {params.max_customer_demand}.",
+        description=f"Random instance generated using seed {params.seed}, "
+        f"with customer demands ranging from {params.min_customer_demand} "
+        f"to {params.max_customer_demand}.",
         depot=depot,
         customers=customers,
         vehicle_capacity=params.vehicle_capacity,
@@ -320,10 +320,11 @@ def generate_clustered_instance(
         id=instance_id,
         type="generated",
         name="Synthetic Clustered",
-        description=f"Synthetic clustered CVRP instance with {params.num_customers} customers "
-        f"distributed across {params.num_clusters} clusters and a vehicle capacity of "
-        f"{params.vehicle_capacity}. Generated using seed {params.seed}, with customer demands "
-        f"ranging from {params.min_customer_demand} to {params.max_customer_demand}.",
+        description=f"Clustered instance with customers "
+        f"distributed across {params.num_clusters} zones. "
+        f"Generated using seed {params.seed}, with customer "
+        f"demands ranging from {params.min_customer_demand} "
+        f"to {params.max_customer_demand}.",
         depot=depot,
         customers=customers,
         vehicle_capacity=params.vehicle_capacity,
