@@ -1,6 +1,13 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 from app.schemas import Solution
+
+
+class ConvergencePoint(BaseModel):
+    generation: int
+    fitness: float
 
 
 class AlgorithmResult(BaseModel):
@@ -8,6 +15,7 @@ class AlgorithmResult(BaseModel):
     initial_fitness: float
     final_solution: Solution
     computation_time: float
+    convergence_history: Optional[list[ConvergencePoint]] = None
 
 
 class ComparisonMetrics(BaseModel):

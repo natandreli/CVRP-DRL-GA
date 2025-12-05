@@ -123,18 +123,29 @@ def run_comparision(
     if abs(improvement_percentage) < 0.5:
         winner = "tie"
 
+    neurogen_convergence = [
+        {"generation": i, "fitness": fitness}
+        for i, fitness in enumerate(ga_neurogen.convergence_history)
+    ]
+    pure_convergence = [
+        {"generation": i, "fitness": fitness}
+        for i, fitness in enumerate(ga_pure.convergence_history)
+    ]
+
     return ComparisonResponse(
         neurogen=AlgorithmResult(
             algorithm_name="GA + DRL (NeuroGen)",
             initial_fitness=initial_neurogen_best,
             final_solution=solution_neurogen,
             computation_time=neurogen_time,
+            convergence_history=neurogen_convergence,
         ),
         ga_pure=AlgorithmResult(
             algorithm_name="Pure GA",
             initial_fitness=initial_pure_best,
             final_solution=solution_pure,
             computation_time=pure_time,
+            convergence_history=pure_convergence,
         ),
         metrics=ComparisonMetrics(
             improvement_absolute=improvement_absolute,
