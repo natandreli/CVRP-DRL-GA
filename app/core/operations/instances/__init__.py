@@ -223,7 +223,7 @@ def generate_random_instance(
     instance = CVRPInstance(
         id=instance_id,
         type="generated",
-        name=f"Synthetic Random: {params.num_customers} customers, Q={params.vehicle_capacity}",
+        name="Synthetic Random",
         description=f"Synthetic random CVRP instance with {params.num_customers} customers and a "
         f"vehicle capacity of {params.vehicle_capacity}. Generated using seed {params.seed}, "
         f"with customer demands ranging from {params.min_customer_demand} to {params.max_customer_demand}.",
@@ -319,7 +319,7 @@ def generate_clustered_instance(
     instance = CVRPInstance(
         id=instance_id,
         type="generated",
-        name=f"Synthetic Clustered: {params.num_customers} customers, {params.num_clusters} clusters, Q={params.vehicle_capacity}",
+        name="Synthetic Clustered",
         description=f"Synthetic clustered CVRP instance with {params.num_customers} customers "
         f"distributed across {params.num_clusters} clusters and a vehicle capacity of "
         f"{params.vehicle_capacity}. Generated using seed {params.seed}, with customer demands "
