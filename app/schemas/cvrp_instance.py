@@ -25,6 +25,7 @@ class CVRPInstance(BaseModel):
     """Capacitated Vehicle Routing Problem Instance."""
 
     id: str = Field(..., description="Unique identifier of the instance")
+    type: str = Field("generated", description="Type of the instance")
     name: str = Field(..., description="Name of the instance")
     description: Optional[str] = Field(None, description="Description of the instance")
     depot: Location = Field(..., description="Location of the depot")
