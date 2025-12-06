@@ -43,7 +43,11 @@ class Settings(BaseSettings):
     GA_ELITISM_COUNT: int = 2
 
     # CORS
-    CORS_ORIGINS: list[str] = ["http://localhost:5173", "http://localhost:3000", "http://localhost"]
+    CORS_ORIGINS: list[str] = [
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://localhost",
+    ]
 
     # Session Management
     SESSION_MAX_AGE_HOURS: int = 24
