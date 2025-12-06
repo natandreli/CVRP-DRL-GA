@@ -341,5 +341,7 @@
   ],
   "vehicle_capacity": 100,
   "max_vehicles": null,
-  "distance_matrix": null
+  "distance_matrix": null,
+  "seed": 123,
+  "num_clusters": 3
 }
