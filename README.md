@@ -65,6 +65,41 @@ app/
 - Python 3.13 or higher
 - [uv](https://docs.astral.sh/uv/) package manager (recommended) or pip
 
+### Installing Python and uv
+
+#### Step 1: Install Python
+
+If you don't have Python installed:
+
+1. Visit [python.org/downloads](https://www.python.org/downloads/)
+2. Download Python 3.13 or higher for your operating system
+3. Run the installer and **check the box "Add Python to PATH"** (important!)
+4. Follow the installation wizard
+
+To verify Python is installed, open a terminal/command prompt and run:
+```bash
+python --version
+```
+
+#### Step 2: Install uv (Python Package Manager)
+
+uv is a fast Python package manager that makes managing dependencies easier.
+
+**On Windows:**
+```bash
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+**On macOS/Linux:**
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+To verify uv is installed:
+```bash
+uv --version
+```
+
 ### Installation from Scratch
 
 1. **Clone the repository**
