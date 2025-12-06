@@ -15,6 +15,8 @@ class AlgorithmResult(BaseModel):
     initial_fitness: float
     final_solution: Solution
     computation_time: float
+    population_generation_time: float
+    ga_convergence_time: float
     convergence_history: Optional[list[ConvergencePoint]] = None
 
 
