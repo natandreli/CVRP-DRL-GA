@@ -39,6 +39,10 @@ class CVRPInstance(BaseModel):
     distance_matrix: Optional[list[list[float]]] = Field(
         None, description="Precomputed distance matrix"
     )
+    seed: Optional[int] = Field(None, description="Random seed used for generation")
+    num_clusters: Optional[int] = Field(
+        None, description="Number of clusters (for clustered instances)"
+    )
 
     @property
     def num_customers(self) -> int:
