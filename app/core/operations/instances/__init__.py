@@ -231,6 +231,7 @@ def generate_random_instance(
         customers=customers,
         vehicle_capacity=params.vehicle_capacity,
         max_vehicles=None,  # Unlimited fleet
+        seed=params.seed,
     )
 
     save_instance(instance, session_id=session_id)
@@ -329,6 +330,8 @@ def generate_clustered_instance(
         customers=customers,
         vehicle_capacity=params.vehicle_capacity,
         max_vehicles=None,  # Unlimited fleet
+        seed=params.seed,
+        num_clusters=params.num_clusters,
     )
 
     save_instance(instance, session_id=session_id)
