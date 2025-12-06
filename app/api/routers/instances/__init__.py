@@ -9,6 +9,7 @@ from app.core.operations.instances import (
     generate_clustered_instance,
     generate_random_instance,
     get_all_instances,
+    load_instance_by_id,
     upload_instance,
 )
 from app.exceptions import InstanceParseException, UnsupportedFileFormatException
@@ -90,6 +91,27 @@ async def handle_upload_instance(file: UploadFile, request: Request):
         raise HTTPException(
             status_code=500,
             detail=f"Unexpected error uploading file: {str(e)}",
+        )
+
+
+@router.get(
+    "/{instance_id}",
+    description="Get a specific CVRP instance by ID (preset or user-generated).",
+    response_model=CVRPInstance,
+)
+def handle_get_instance(instance_id: str, request: Request):
+    try:
+        session_id = request.state.session_id
+        return load_instance_by_id(instance_id, session_id=session_id)
+    except InstanceParseException as e:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Instance '{e.filename}' not found: {e.reason}",
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to load instance: {str(e)}",
         )
 
 
