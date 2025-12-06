@@ -18,6 +18,10 @@ import random
 
 import numpy as np
 
+from app.api.routers.instances.payload_schemas import (
+    GenerateClusteredInstanceRequest,
+    GenerateRandomInstanceRequest,
+)
 from app.config import settings
 from app.core.drl.actor_critic_agent import ActorCriticAgent
 from app.core.drl.cvrp_environment import CVRPEnvironment
@@ -89,17 +93,16 @@ def train_expert_agent():
     validation_set = []
     validation_sizes = [80, 90, 100, 110, 118, 126, 133, 140, 145, 150]
     for i, num_cust in enumerate(validation_sizes):
-        validation_set.append(
-            generate_clustered_instance(  # Validate mainly on clustered (primary scenario)
-                num_customers=num_cust,
-                grid_size=225,
-                vehicle_capacity=215,
-                min_customer_demand=gen_params["min_dem"],
-                max_customer_demand=gen_params["max_dem"],
-                num_clusters=6,
-                seed=1000 + i,
-            )
+        params = GenerateClusteredInstanceRequest(
+            num_customers=num_cust,
+            grid_size=225,
+            vehicle_capacity=215,
+            min_customer_demand=gen_params["min_dem"],
+            max_customer_demand=gen_params["max_dem"],
+            num_clusters=6,
+            seed=1000 + i,
         )
+        validation_set.append(generate_clustered_instance(params))
 
     initial_instance = validation_set[0]
     agent = ActorCriticAgent(instance=initial_instance, config=config)
@@ -115,7 +118,7 @@ def train_expert_agent():
         use_random = random.random() < random_ratio
 
         if use_random:
-            instance = generate_random_instance(
+            params = GenerateRandomInstanceRequest(
                 num_customers=num_customers,
                 grid_size=grid_size,
                 vehicle_capacity=vehicle_capacity,
@@ -123,10 +126,11 @@ def train_expert_agent():
                 max_customer_demand=gen_params["max_dem"],
                 seed=episode,
             )
+            instance = generate_random_instance(params)
             instance_type = "Random"
         else:
             num_clusters = random.randint(5, 10)
-            instance = generate_clustered_instance(
+            params = GenerateClusteredInstanceRequest(
                 num_customers=num_customers,
                 grid_size=grid_size,
                 vehicle_capacity=vehicle_capacity,
@@ -135,6 +139,7 @@ def train_expert_agent():
                 num_clusters=num_clusters,
                 seed=episode,
             )
+            instance = generate_clustered_instance(params)
             instance_type = f"Clustered({num_clusters})"
 
         agent.instance = instance

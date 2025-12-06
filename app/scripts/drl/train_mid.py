@@ -18,6 +18,10 @@ import random
 
 import numpy as np
 
+from app.api.routers.instances.payload_schemas import (
+    GenerateClusteredInstanceRequest,
+    GenerateRandomInstanceRequest,
+)
 from app.config import settings
 from app.core.drl.actor_critic_agent import ActorCriticAgent
 from app.core.drl.cvrp_environment import CVRPEnvironment
@@ -83,16 +87,15 @@ def train_mid_agent():
     validation_set = []
     validation_sizes = [40, 48, 55, 62, 68, 74, 80, 86, 93, 100]
     for i, num_cust in enumerate(validation_sizes):
-        validation_set.append(
-            generate_random_instance(
-                num_customers=num_cust,
-                grid_size=150,
-                vehicle_capacity=150,
-                min_customer_demand=gen_params["min_dem"],
-                max_customer_demand=gen_params["max_dem"],
-                seed=1000 + i,
-            )
+        params = GenerateRandomInstanceRequest(
+            num_customers=num_cust,
+            grid_size=150,
+            vehicle_capacity=150,
+            min_customer_demand=gen_params["min_dem"],
+            max_customer_demand=gen_params["max_dem"],
+            seed=1000 + i,
         )
+        validation_set.append(generate_random_instance(params))
 
     initial_instance = validation_set[0]
     agent = ActorCriticAgent(instance=initial_instance, config=config)
@@ -111,7 +114,7 @@ def train_mid_agent():
         use_random = random.random() < random_ratio
 
         if use_random:
-            instance = generate_random_instance(
+            params = GenerateRandomInstanceRequest(
                 num_customers=num_customers,
                 grid_size=grid_size,
                 vehicle_capacity=vehicle_capacity,
@@ -119,10 +122,11 @@ def train_mid_agent():
                 max_customer_demand=gen_params["max_dem"],
                 seed=episode,
             )
+            instance = generate_random_instance(params)
             instance_type = "Random"
         else:
             num_clusters = random.randint(3, 6)
-            instance = generate_clustered_instance(
+            params = GenerateClusteredInstanceRequest(
                 num_customers=num_customers,
                 grid_size=grid_size,
                 vehicle_capacity=vehicle_capacity,
@@ -131,6 +135,7 @@ def train_mid_agent():
                 num_clusters=num_clusters,
                 seed=episode,
             )
+            instance = generate_clustered_instance(params)
             instance_type = f"Clustered({num_clusters})"
 
         agent.instance = instance
