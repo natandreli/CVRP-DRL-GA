@@ -68,14 +68,15 @@ def run_comparision(
 
     # Generate DRL-based population (NeuroGen approach)
     logger.info(f"Generating DRL population with {request.drl_model_id}...")
-    start_time = time.time()
+    drl_gen_start = time.time()
     drl_population = generate_population_with_drl(
         instance=instance,
         agent=agent,
         population_size=request.ga_config.population_size,
         diversity=0.2,
     )
-    drl_gen_time = time.time() - start_time
+    drl_gen_time = time.time() - drl_gen_start
+    logger.info(f"DRL population generated in {drl_gen_time:.2f}s")
 
     logger.info("Running GA with DRL population (NeuroGen)...")
     ga_neurogen = GeneticAlgorithm(
@@ -85,31 +86,35 @@ def run_comparision(
     ga_neurogen.initialize_population(custom_population=drl_population)
     initial_neurogen_best = ga_neurogen.get_best_individual().fitness
 
-    start_time = time.time()
+    neurogen_ga_start = time.time()
     solution_neurogen = ga_neurogen.run(custom_population=drl_population)
-    neurogen_time = time.time() - start_time + drl_gen_time
+    neurogen_ga_time = time.time() - neurogen_ga_start
+    neurogen_total_time = drl_gen_time + neurogen_ga_time
     logger.info(
-        f"NeuroGen completed in {neurogen_time:.2f}s: {solution_neurogen.total_cost:.2f}"
+        f"NeuroGen GA completed in {neurogen_ga_time:.2f}s (total: {neurogen_total_time:.2f}s): {solution_neurogen.total_cost:.2f}"
     )
 
     logger.info("Running GA with random population (pure GA)...")
+    pure_gen_start = time.time()
     ga_pure = GeneticAlgorithm(
         instance=instance,
         config=request.ga_config,
     )
     ga_pure.initialize_population(use_heuristics=False)
     initial_pure_best = ga_pure.get_best_individual().fitness
+    pure_gen_time = time.time() - pure_gen_start
 
-    start_time = time.time()
+    pure_ga_start = time.time()
     solution_pure = ga_pure.run(use_heuristics=False)
-    pure_time = time.time() - start_time
+    pure_ga_time = time.time() - pure_ga_start
+    pure_total_time = pure_gen_time + pure_ga_time
     logger.info(
-        f"Pure GA completed in {pure_time:.2f}s: {solution_pure.total_cost:.2f}"
+        f"Pure GA completed in {pure_ga_time:.2f}s (total: {pure_total_time:.2f}s): {solution_pure.total_cost:.2f}"
     )
 
     improvement_absolute = solution_pure.total_cost - solution_neurogen.total_cost
     improvement_percentage = (improvement_absolute / solution_pure.total_cost) * 100
-    time_difference = neurogen_time - pure_time
+    time_difference = neurogen_total_time - pure_total_time
     initial_gap = (
         (initial_pure_best - initial_neurogen_best) / initial_pure_best
     ) * 100
@@ -137,14 +142,18 @@ def run_comparision(
             algorithm_name="GA + DRL (NeuroGen)",
             initial_fitness=initial_neurogen_best,
             final_solution=solution_neurogen,
-            computation_time=neurogen_time,
+            computation_time=neurogen_total_time,
+            population_generation_time=drl_gen_time,
+            ga_convergence_time=neurogen_ga_time,
             convergence_history=neurogen_convergence,
         ),
         ga_pure=AlgorithmResult(
             algorithm_name="Pure GA",
             initial_fitness=initial_pure_best,
             final_solution=solution_pure,
-            computation_time=pure_time,
+            computation_time=pure_total_time,
+            population_generation_time=pure_gen_time,
+            ga_convergence_time=pure_ga_time,
             convergence_history=pure_convergence,
         ),
         metrics=ComparisonMetrics(
