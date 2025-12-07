@@ -56,7 +56,7 @@ class ExperimentRunner:
             Loaded ActorCriticAgent
         """
         cache_key = f"{agent_name}_{instance.num_customers}"
-        
+
         if cache_key in self.agents and self.agents[cache_key] is not None:
             self.agents[cache_key].instance = instance
             self.agents[cache_key].env.instance = instance
@@ -87,7 +87,9 @@ class ExperimentRunner:
         agent.network.load_state_dict(checkpoint["network"])
         agent.epsilon = 0.0  # Disable exploration by default
 
-        print(f"  ✓ Loaded {agent_name} agent (size={instance.num_customers}) from {checkpoint_path}")
+        print(
+            f"  ✓ Loaded {agent_name} agent (size={instance.num_customers}) from {checkpoint_path}"
+        )
 
         # Cache agent with size-specific key
         self.agents[cache_key] = agent
