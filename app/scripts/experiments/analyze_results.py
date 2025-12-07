@@ -119,7 +119,7 @@ def main():
         exp_dirs = sorted(results_base.glob("experiments_*"), reverse=True)
 
         if not exp_dirs:
-            print("❌ Error: No experiment directories found in results/")
+            print("Error: No experiment directories found in results/")
             print("\nPlease run experiments first with:")
             print("  python -m app.scripts.experiments.run_experiments")
             sys.exit(1)
