@@ -120,9 +120,9 @@ class StatisticalAnalyzer:
             "statistic": float(statistic),
             "p_value": float(p_value),
             "significance_level": 0.05,
-            "is_significant": p_value < 0.05,
+            "is_significant": bool(p_value < 0.05),
             "kendalls_w": float(kendalls_w),
-            "n_instances": n_instances,
+            "n_instances": int(n_instances),
             "configurations": configurations,
             "average_ranks": avg_ranks,
             "interpretation": (
@@ -202,7 +202,7 @@ class StatisticalAnalyzer:
                         "config_2": configurations[j],
                         "rank_diff": float(rank_diff),
                         "critical_distance": float(cd),
-                        "is_significant": is_significant,
+                        "is_significant": bool(is_significant),
                         "better_config": (
                             configurations[i]
                             if avg_ranks[i] < avg_ranks[j]
@@ -214,8 +214,8 @@ class StatisticalAnalyzer:
         result = {
             "test": "Nemenyi",
             "alpha": alpha,
-            "n_instances": n_instances,
-            "k_configurations": k_configs,
+            "n_instances": int(n_instances),
+            "k_configurations": int(k_configs),
             "critical_distance": float(cd),
             "average_ranks": {
                 config: float(avg_ranks[i]) for i, config in enumerate(configurations)
@@ -295,14 +295,14 @@ class StatisticalAnalyzer:
                 "in_range_performance": {
                     "mean_cost": float(in_range_mean),
                     "std_cost": float(np.std(in_range_costs)) if in_range_costs else 0,
-                    "n_instances": len(in_range_costs),
+                    "n_instances": int(len(in_range_costs)),
                 },
                 "out_range_performance": {
                     "mean_cost": float(out_range_mean),
                     "std_cost": float(np.std(out_range_costs))
                     if out_range_costs
                     else 0,
-                    "n_instances": len(out_range_costs),
+                    "n_instances": int(len(out_range_costs)),
                 },
                 "relative_performance": float(
                     (out_range_mean - in_range_mean) / in_range_mean * 100
@@ -311,7 +311,7 @@ class StatisticalAnalyzer:
                 ),
                 "t_statistic": float(t_stat),
                 "p_value": float(p_value),
-                "is_specialized": p_value < 0.05 and in_range_mean < out_range_mean,
+                "is_specialized": bool(p_value < 0.05 and in_range_mean < out_range_mean),
             }
 
         # Print results
@@ -330,7 +330,7 @@ class StatisticalAnalyzer:
 
         return {
             "agents": analysis,
-            "hypothesis_h2": all(a["is_specialized"] for a in analysis.values()),
+            "hypothesis_h2": bool(all(a["is_specialized"] for a in analysis.values())),
         }
 
     def generate_summary_statistics(self) -> dict:
