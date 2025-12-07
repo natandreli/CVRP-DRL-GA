@@ -48,7 +48,9 @@ def train_expert_agent():
     print("Scenario: Amazon Prime, FedEx, UPS - optimized urban delivery")
     print("Customer range: 80-150 customers")
     print("Vehicle capacity: 180-250 units")
-    print("Episodes: 8000")
+    print("Strategy: Curriculum Learning (Easy -> Hard -> Expert)")
+    print("Episodes: 25,000 (Required for convergence on 150 nodes)")
+    print("Validation: 1 Random : 2 Clustered (Weighted for reality)")
     print("Instance distribution: 20% random, 80% clustered")
     print("=" * 80)
     print()
@@ -58,25 +60,48 @@ def train_expert_agent():
     # Expert config: Conservative, stable learning
     config = DRLConfig(
         episodes=1,  # Handle episodes manually for mixed instances
-        learning_rate_actor=1e-4,  # Conservative learning
-        learning_rate_critic=5e-5,
+        learning_rate_actor=3e-4,  # Conservative learning
+        learning_rate_critic=1e-5,
         epsilon_start=1.0,
-        epsilon_end=0.01,  # Very low final exploration
-        epsilon_decay=0.9999,  # Very slow decay for thorough exploration
+        epsilon_end=0.02,  # Very low final exploration
+        epsilon_decay=0.99985,  # Very slow decay for thorough exploration
         gamma=0.99,
         device=settings.DRL_DEVICE,
     )
 
     # Training configuration
-    total_episodes = 8000  # Balanced for expert-level learning
+    total_episodes = 25000  # Balanced for expert-level learning
     random_ratio = 0.20  # 20% random, 80% clustered (realistic)
 
-    # Instance generation parameters
+    curriculum = [
+        # Phase 1: Warm-up (50-90 customers)
+        {
+            "end_episode": 7000,
+            "min_customers": 50,
+            "max_customers": 90,
+            "min_capacity": 150,
+            "max_capacity": 200,
+        },
+        # Phase 2: Scaling (80-120 customers)
+        {
+            "end_episode": 15000,
+            "min_customers": 80,
+            "max_customers": 120,
+            "min_capacity": 180,
+            "max_capacity": 230,
+        },
+        # Phase 3: Full Expert (100-150 customers)
+        {
+            "end_episode": 25000,
+            "min_customers": 100,
+            "max_customers": 150,
+            "min_capacity": 200,
+            "max_capacity": 250,
+        },
+    ]
+
+    # Instance generation parameters (for validation and training)
     gen_params = {
-        "min_cust": 80,
-        "max_cust": 150,
-        "min_cap": 180,
-        "max_cap": 250,
         "min_dem": 5,
         "max_dem": 30,
         "min_grid": 150,
@@ -91,7 +116,21 @@ def train_expert_agent():
     print()
 
     validation_set = []
-    validation_sizes = [80, 90, 100, 110, 118, 126, 133, 140, 145, 150]
+    validation_sizes = [100, 110, 118, 126, 133, 140, 145, 150]
+
+    # 1. Add random instances (1 per size)
+    for i, num_cust in enumerate(validation_sizes):
+        params = GenerateRandomInstanceRequest(
+            num_customers=num_cust,
+            grid_size=225,
+            vehicle_capacity=215,
+            min_customer_demand=gen_params["min_dem"],
+            max_customer_demand=gen_params["max_dem"],
+            seed=1000 + i,
+        )
+        validation_set.append(generate_random_instance(params, save=False))
+
+    # 2. Add clustered instances - Type A (1 per size)
     for i, num_cust in enumerate(validation_sizes):
         params = GenerateClusteredInstanceRequest(
             num_customers=num_cust,
@@ -100,9 +139,22 @@ def train_expert_agent():
             min_customer_demand=gen_params["min_dem"],
             max_customer_demand=gen_params["max_dem"],
             num_clusters=6,
-            seed=1000 + i,
+            seed=2000 + i,
         )
-        validation_set.append(generate_clustered_instance(params))
+        validation_set.append(generate_clustered_instance(params, save=False))
+
+    # 3. Add clustered instances - Type B (1 per size) - To maintain 1:2 ratio
+    for i, num_cust in enumerate(validation_sizes):
+        params = GenerateClusteredInstanceRequest(
+            num_customers=num_cust,
+            grid_size=225,
+            vehicle_capacity=215,
+            min_customer_demand=gen_params["min_dem"],
+            max_customer_demand=gen_params["max_dem"],
+            num_clusters=8,
+            seed=3000 + i,
+        )
+        validation_set.append(generate_clustered_instance(params, save=False))
 
     initial_instance = validation_set[0]
     agent = ActorCriticAgent(instance=initial_instance, config=config)
@@ -111,8 +163,19 @@ def train_expert_agent():
     episode_costs = []
 
     for episode in range(1, total_episodes + 1):
-        num_customers = random.randint(gen_params["min_cust"], gen_params["max_cust"])
-        vehicle_capacity = random.randint(gen_params["min_cap"], gen_params["max_cap"])
+        current_phase = curriculum[0]
+        for phase in curriculum:
+            if episode <= phase["end_episode"]:
+                current_phase = phase
+                break
+
+        num_customers = random.randint(
+            current_phase["min_customers"], current_phase["max_customers"]
+        )
+
+        vehicle_capacity = random.randint(
+            current_phase["min_capacity"], current_phase["max_capacity"]
+        )
         grid_size = random.randint(gen_params["min_grid"], gen_params["max_grid"])
 
         use_random = random.random() < random_ratio
@@ -126,7 +189,7 @@ def train_expert_agent():
                 max_customer_demand=gen_params["max_dem"],
                 seed=episode,
             )
-            instance = generate_random_instance(params)
+            instance = generate_random_instance(params, save=False)
             instance_type = "Random"
         else:
             num_clusters = random.randint(5, 10)
@@ -139,7 +202,7 @@ def train_expert_agent():
                 num_clusters=num_clusters,
                 seed=episode,
             )
-            instance = generate_clustered_instance(params)
+            instance = generate_clustered_instance(params, save=False)
             instance_type = f"Clustered({num_clusters})"
 
         agent.instance = instance
@@ -180,13 +243,13 @@ def train_expert_agent():
             print(f" Epsilon: {agent.epsilon:.4f}")
             print("-" * 40)
 
-        # Checkpoint every 500 episodes (important for long training)
-        if episode % 500 == 0:
-            checkpoint_path = (
+        # Checkpoint every 5000 episodes (important for long training)
+        if episode % 5000 == 0:
+            intermediate_checkpoint = (
                 settings.CHECKPOINTS_DIR / f"expert_checkpoint_{episode}.pth"
             )
-            agent.save(str(checkpoint_path))
-            print(f" Checkpoint saved: {checkpoint_path.name}")
+            agent.save(str(intermediate_checkpoint))
+            print(f" Checkpoint saved: {intermediate_checkpoint.name}")
             print()
 
     print()

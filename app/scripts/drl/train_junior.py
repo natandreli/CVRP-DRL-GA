@@ -46,7 +46,7 @@ def train_junior_agent():
     print("Scenario: Local courier (food delivery, pharmacy, local parcels)")
     print("Customer range: 15-50 customers")
     print("Vehicle capacity: 80-100 units")
-    print("Episodes: 4000")
+    print("Episodes: 6000")
     print("Instance distribution: 60% random, 40% clustered")
     print("=" * 80)
     print()
@@ -59,13 +59,13 @@ def train_junior_agent():
         learning_rate_actor=1e-3,  # Fast learning
         learning_rate_critic=5e-4,
         epsilon_start=1.0,
-        epsilon_end=0.1,
-        epsilon_decay=0.9996,  # Moderate decay
+        epsilon_end=0.05,
+        epsilon_decay=0.9995,  # Moderate decay
         gamma=0.99,
         device=settings.DRL_DEVICE,
     )
 
-    total_episodes = 4000  # Balanced for learning vs time
+    total_episodes = 6000  # Balanced for learning vs time
     random_ratio = 0.60  # 60% random instances
 
     # Instance generation parameters
@@ -85,16 +85,31 @@ def train_junior_agent():
 
     validation_set = []
     validation_sizes = [15, 20, 25, 30, 32, 35, 38, 42, 46, 50]
+
+    # Add random instances
     for i, num_cust in enumerate(validation_sizes):
         params = GenerateRandomInstanceRequest(
             num_customers=num_cust,
-            grid_size=75,
+            grid_size=100,
             vehicle_capacity=90,
             min_customer_demand=gen_params["min_dem"],
             max_customer_demand=gen_params["max_dem"],
             seed=1000 + i,
         )
-        validation_set.append(generate_random_instance(params))
+        validation_set.append(generate_random_instance(params, save=False))
+
+    # Add clustered instances
+    for i, num_cust in enumerate(validation_sizes):
+        params = GenerateClusteredInstanceRequest(
+            num_customers=num_cust,
+            grid_size=100,
+            vehicle_capacity=90,
+            min_customer_demand=gen_params["min_dem"],
+            max_customer_demand=gen_params["max_dem"],
+            num_clusters=3,
+            seed=2000 + i,
+        )
+        validation_set.append(generate_clustered_instance(params, save=False))
 
     initial_instance = validation_set[0]
     agent = ActorCriticAgent(instance=initial_instance, config=config)
@@ -120,7 +135,7 @@ def train_junior_agent():
                 max_customer_demand=gen_params["max_dem"],
                 seed=episode,
             )
-            instance = generate_random_instance(params)
+            instance = generate_random_instance(params, save=False)
             instance_type = "Random"
         else:
             num_clusters = random.randint(2, 4)
@@ -133,7 +148,7 @@ def train_junior_agent():
                 num_clusters=num_clusters,
                 seed=episode,
             )
-            instance = generate_clustered_instance(params)
+            instance = generate_clustered_instance(params, save=False)
             instance_type = f"Clustered({num_clusters})"
 
         agent.instance = instance
@@ -172,6 +187,15 @@ def train_junior_agent():
             print(f" Validation Avg: {current_val_avg:.2f} (Best: {best_val_avg:.2f})")
             print(f" Epsilon: {agent.epsilon:.4f}")
             print("-" * 40)
+
+        # Checkpoint every 1000 episodes
+        if episode % 1000 == 0:
+            intermediate_checkpoint = (
+                settings.CHECKPOINTS_DIR / f"junior_checkpoint_{episode}.pth"
+            )
+            agent.save(str(intermediate_checkpoint))
+            print(f" Checkpoint saved: {intermediate_checkpoint.name}")
+            print()
 
     print()
     print("Training completed!")

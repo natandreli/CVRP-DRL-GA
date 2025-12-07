@@ -47,7 +47,7 @@ def train_mid_agent():
     print("Scenario: Regional courier services, cross-city logistics")
     print("Customer range: 40-100 customers")
     print("Vehicle capacity: 120-180 units")
-    print("Episodes: 6000")
+    print("Episodes: 10000")
     print("Instance distribution: 50% random, 50% clustered")
     print("=" * 80)
     print()
@@ -57,16 +57,16 @@ def train_mid_agent():
     # Mid-level config: Balanced learning
     config = DRLConfig(
         episodes=1,  # Handle episodes manually for mixed instances
-        learning_rate_actor=5e-4,  # Moderate learning rate
-        learning_rate_critic=2.5e-4,
+        learning_rate_actor=4e-4,  # Moderate learning rate
+        learning_rate_critic=2e-4,
         epsilon_start=1.0,
         epsilon_end=0.05,
-        epsilon_decay=0.9998,  # Slower decay for better exploration
+        epsilon_decay=0.9997,  # Slower decay for better exploration
         gamma=0.99,
         device=settings.DRL_DEVICE,
     )
 
-    total_episodes = 6000  # Balanced for learning vs time
+    total_episodes = 10000  # Balanced for learning vs time
     random_ratio = 0.50  # 50-50 split
 
     # Instance generation parameters
@@ -78,7 +78,7 @@ def train_mid_agent():
         "min_dem": 5,
         "max_dem": 25,
         "min_grid": 100,
-        "max_grid": 200,
+        "max_grid": 160,
     }
 
     print("Generating fixed validation set (Benchmark)...")
@@ -86,6 +86,8 @@ def train_mid_agent():
 
     validation_set = []
     validation_sizes = [40, 48, 55, 62, 68, 74, 80, 86, 93, 100]
+
+    # Add random instances
     for i, num_cust in enumerate(validation_sizes):
         params = GenerateRandomInstanceRequest(
             num_customers=num_cust,
@@ -95,7 +97,20 @@ def train_mid_agent():
             max_customer_demand=gen_params["max_dem"],
             seed=1000 + i,
         )
-        validation_set.append(generate_random_instance(params))
+        validation_set.append(generate_random_instance(params, save=False))
+
+    # Add clustered instances
+    for i, num_cust in enumerate(validation_sizes):
+        params = GenerateClusteredInstanceRequest(
+            num_customers=num_cust,
+            grid_size=150,
+            vehicle_capacity=150,
+            min_customer_demand=gen_params["min_dem"],
+            max_customer_demand=gen_params["max_dem"],
+            num_clusters=4,
+            seed=2000 + i,
+        )
+        validation_set.append(generate_clustered_instance(params, save=False))
 
     initial_instance = validation_set[0]
     agent = ActorCriticAgent(instance=initial_instance, config=config)
@@ -122,7 +137,7 @@ def train_mid_agent():
                 max_customer_demand=gen_params["max_dem"],
                 seed=episode,
             )
-            instance = generate_random_instance(params)
+            instance = generate_random_instance(params, save=False)
             instance_type = "Random"
         else:
             num_clusters = random.randint(3, 6)
@@ -135,7 +150,7 @@ def train_mid_agent():
                 num_clusters=num_clusters,
                 seed=episode,
             )
-            instance = generate_clustered_instance(params)
+            instance = generate_clustered_instance(params, save=False)
             instance_type = f"Clustered({num_clusters})"
 
         agent.instance = instance
@@ -175,6 +190,15 @@ def train_mid_agent():
             print(f" Validation Avg: {current_val_avg:.2f} (Best: {best_val_avg:.2f})")
             print(f" Epsilon: {agent.epsilon:.4f}")
             print("-" * 40)
+
+        # Checkpoint every 1500 episodes
+        if episode % 1500 == 0:
+            intermediate_checkpoint = (
+                settings.CHECKPOINTS_DIR / f"mid_checkpoint_{episode}.pth"
+            )
+            agent.save(str(intermediate_checkpoint))
+            print(f" Checkpoint saved: {intermediate_checkpoint.name}")
+            print()
 
     print()
     print("Training completed!")
