@@ -1,8 +1,8 @@
 {
-  "id": "preset_expert_clustered_120",
+  "id": "preset_expert_clustered_100",
   "type": "preset",
-  "name": "Expert Clustered - 120 customers (5 regions)",
-  "description": "Clustered instance for multi-region supply chain (120 customers, 5 regions)",
+  "name": "Expert Clustered - 100 customers (5 regions)",
+  "description": "Clustered instance for multi-region supply chain (100 customers, 5 regions)",
   "depot": {
     "x": 100.0,
     "y": 100.0
@@ -11,10 +11,10 @@
     {
       "id": 1,
       "location": {
-        "x": 133.8546505067646,
-        "y": 99.76958560815628
+        "x": 84.60764755808431,
+        "y": 165.36671559956437
       },
-      "demand": 21,
+      "demand": 19,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
@@ -22,10 +22,10 @@
     {
       "id": 2,
       "location": {
-        "x": 130.63525831292262,
-        "y": 96.79214018153465
+        "x": 67.3766444844369,
+        "y": 154.10109959347517
       },
-      "demand": 10,
+      "demand": 30,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
@@ -33,10 +33,10 @@
     {
       "id": 3,
       "location": {
-        "x": 152.73652133050405,
-        "y": 91.03255588279424
+        "x": 71.26725675608563,
+        "y": 151.65705444657434
       },
-      "demand": 21,
+      "demand": 11,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
@@ -44,8 +44,8 @@
     {
       "id": 4,
       "location": {
-        "x": 108.40712134916362,
-        "y": 84.93411175946848
+        "x": 86.42128927169388,
+        "y": 130.7353566394018
       },
       "demand": 29,
       "ready_time": null,
@@ -55,10 +55,10 @@
     {
       "id": 5,
       "location": {
-        "x": 122.64141674785066,
-        "y": 103.54435122187708
+        "x": 67.91927149435818,
+        "y": 120.44089203977673
       },
-      "demand": 27,
+      "demand": 21,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
@@ -66,10 +66,10 @@
     {
       "id": 6,
       "location": {
-        "x": 142.66037113829216,
-        "y": 99.85523894744415
+        "x": 109.36988625213377,
+        "y": 163.57072980232743
       },
-      "demand": 27,
+      "demand": 21,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
@@ -77,162 +77,8 @@
     {
       "id": 7,
       "location": {
-        "x": 153.3394733255983,
-        "y": 63.126336278279474
-      },
-      "demand": 29,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 8,
-      "location": {
-        "x": 174.02605906627997,
-        "y": 106.37288453485566
-      },
-      "demand": 28,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 9,
-      "location": {
-        "x": 120.10436131650627,
-        "y": 113.85080699910088
-      },
-      "demand": 22,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 10,
-      "location": {
-        "x": 109.82435899727903,
-        "y": 121.89906101417415
-      },
-      "demand": 13,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 11,
-      "location": {
-        "x": 122.44293840737718,
-        "y": 119.29407921881565
-      },
-      "demand": 25,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 12,
-      "location": {
-        "x": 83.30842534479262,
-        "y": 119.00443034081971
-      },
-      "demand": 26,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 13,
-      "location": {
-        "x": 135.64931316886953,
-        "y": 109.05401040010779
-      },
-      "demand": 11,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 14,
-      "location": {
-        "x": 100.06857184730538,
-        "y": 95.55415635774163
-      },
-      "demand": 19,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 15,
-      "location": {
-        "x": 136.14087897341128,
-        "y": 111.59532946495435
-      },
-      "demand": 27,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 16,
-      "location": {
-        "x": 104.21076684783081,
-        "y": 73.3963536589979
-      },
-      "demand": 10,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 17,
-      "location": {
-        "x": 128.7131830212083,
-        "y": 107.26641127911597
-      },
-      "demand": 26,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 18,
-      "location": {
-        "x": 103.89524572870889,
-        "y": 74.0834800908063
-      },
-      "demand": 20,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 19,
-      "location": {
-        "x": 115.40582984324207,
-        "y": 124.99447079527482
-      },
-      "demand": 10,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 20,
-      "location": {
-        "x": 116.0032992457029,
-        "y": 98.91678869728257
-      },
-      "demand": 29,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 21,
-      "location": {
-        "x": 154.28534774740484,
-        "y": 117.4517926230883
+        "x": 124.34988881915652,
+        "y": 144.2051649185985
       },
       "demand": 16,
       "ready_time": null,
@@ -240,32 +86,164 @@
       "service_time": 0
     },
     {
+      "id": 8,
+      "location": {
+        "x": 79.85906066168985,
+        "y": 145.6119566280014
+      },
+      "demand": 11,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 9,
+      "location": {
+        "x": 101.14622466624289,
+        "y": 135.56858496728753
+      },
+      "demand": 11,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 10,
+      "location": {
+        "x": 77.7139182749831,
+        "y": 89.27981424708561
+      },
+      "demand": 15,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 11,
+      "location": {
+        "x": 56.450030915722266,
+        "y": 126.80611488110992
+      },
+      "demand": 16,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 12,
+      "location": {
+        "x": 97.11713541208339,
+        "y": 110.22866660116162
+      },
+      "demand": 13,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 13,
+      "location": {
+        "x": 119.76888430767953,
+        "y": 125.41819603860783
+      },
+      "demand": 24,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 14,
+      "location": {
+        "x": 112.86028263744782,
+        "y": 124.04968138055035
+      },
+      "demand": 10,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 15,
+      "location": {
+        "x": 104.19635777448157,
+        "y": 129.55803660164372
+      },
+      "demand": 22,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 16,
+      "location": {
+        "x": 64.01103962146914,
+        "y": 172.97874833481777
+      },
+      "demand": 28,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 17,
+      "location": {
+        "x": 105.96216637434003,
+        "y": 151.82169817268917
+      },
+      "demand": 15,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 18,
+      "location": {
+        "x": 55.77728450491417,
+        "y": 143.22034081556933
+      },
+      "demand": 24,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 19,
+      "location": {
+        "x": 87.08995048305111,
+        "y": 94.48262560901912
+      },
+      "demand": 22,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 20,
+      "location": {
+        "x": 77.63443640358933,
+        "y": 132.28285365300212
+      },
+      "demand": 21,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 21,
+      "location": {
+        "x": 38.30131634062843,
+        "y": 101.78692180845887
+      },
+      "demand": 21,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
       "id": 22,
       "location": {
-        "x": 144.1750555782749,
-        "y": 85.55355698361267
-      },
-      "demand": 20,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 23,
-      "location": {
-        "x": 170.411358532704,
-        "y": 80.3067661042279
-      },
-      "demand": 23,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 24,
-      "location": {
-        "x": 112.1238509118601,
-        "y": 63.54773360649579
+        "x": 64.11235255914741,
+        "y": 112.9075316538173
       },
       "demand": 18,
       "ready_time": null,
@@ -273,21 +251,10 @@
       "service_time": 0
     },
     {
-      "id": 25,
+      "id": 23,
       "location": {
-        "x": 104.48622924658548,
-        "y": 92.04104919018059
-      },
-      "demand": 30,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 26,
-      "location": {
-        "x": 118.61851321112121,
-        "y": 124.94177895297474
+        "x": 54.94646220033255,
+        "y": 135.66202353677002
       },
       "demand": 19,
       "ready_time": null,
@@ -295,10 +262,32 @@
       "service_time": 0
     },
     {
-      "id": 27,
+      "id": 24,
       "location": {
-        "x": 86.85140892216263,
-        "y": 44.720349181425874
+        "x": 38.90372747771535,
+        "y": 136.9953616370416
+      },
+      "demand": 19,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 25,
+      "location": {
+        "x": 58.17808972756529,
+        "y": 159.30868844116134
+      },
+      "demand": 29,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 26,
+      "location": {
+        "x": 55.63967862841498,
+        "y": 105.8245529051428
       },
       "demand": 17,
       "ready_time": null,
@@ -306,10 +295,21 @@
       "service_time": 0
     },
     {
+      "id": 27,
+      "location": {
+        "x": 37.93002469394642,
+        "y": 118.66450732313645
+      },
+      "demand": 20,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
       "id": 28,
       "location": {
-        "x": 127.98342235577297,
-        "y": 89.21505330778129
+        "x": 45.598278747102256,
+        "y": 94.97432666787213
       },
       "demand": 19,
       "ready_time": null,
@@ -319,10 +319,10 @@
     {
       "id": 29,
       "location": {
-        "x": 164.65655530204705,
-        "y": 144.0930991411911
+        "x": 37.36042931997615,
+        "y": 104.93598020555939
       },
-      "demand": 29,
+      "demand": 28,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
@@ -330,459 +330,8 @@
     {
       "id": 30,
       "location": {
-        "x": 158.78375863842166,
-        "y": 129.4701233763111
-      },
-      "demand": 21,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 31,
-      "location": {
-        "x": 125.5712541232116,
-        "y": 126.84637704030334
-      },
-      "demand": 15,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 32,
-      "location": {
-        "x": 146.44877074843166,
-        "y": 65.82863561661044
-      },
-      "demand": 17,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 33,
-      "location": {
-        "x": 159.43407616934346,
-        "y": 87.50007824395577
-      },
-      "demand": 28,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 34,
-      "location": {
-        "x": 105.45247785429567,
-        "y": 114.86692746529148
-      },
-      "demand": 21,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 35,
-      "location": {
-        "x": 138.28207514879432,
-        "y": 94.05319444573665
-      },
-      "demand": 10,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 36,
-      "location": {
-        "x": 137.60778970975164,
-        "y": 119.13058862731478
-      },
-      "demand": 29,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 37,
-      "location": {
-        "x": 131.65990162392612,
-        "y": 110.11681384471639
-      },
-      "demand": 22,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 38,
-      "location": {
-        "x": 172.9573911270088,
-        "y": 99.74683612459577
-      },
-      "demand": 15,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 39,
-      "location": {
-        "x": 165.18454112241525,
-        "y": 105.33289857783743
-      },
-      "demand": 21,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 40,
-      "location": {
-        "x": 117.43515170134543,
-        "y": 87.72451982571118
-      },
-      "demand": 12,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 41,
-      "location": {
-        "x": 150.2854922267574,
-        "y": 112.28747790631941
-      },
-      "demand": 16,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 42,
-      "location": {
-        "x": 136.4341085668606,
-        "y": 85.84236005138442
-      },
-      "demand": 10,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 43,
-      "location": {
-        "x": 116.28429775964969,
-        "y": 87.39407864540026
-      },
-      "demand": 28,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 44,
-      "location": {
-        "x": 106.45761110044795,
-        "y": 85.9606883507866
-      },
-      "demand": 10,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 45,
-      "location": {
-        "x": 176.92235124437389,
-        "y": 162.70771224101867
-      },
-      "demand": 19,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 46,
-      "location": {
-        "x": 144.30210177567614,
-        "y": 121.05935875920403
-      },
-      "demand": 16,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 47,
-      "location": {
-        "x": 126.25573925104062,
-        "y": 167.78854969927542
-      },
-      "demand": 27,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 48,
-      "location": {
-        "x": 129.9825181890807,
-        "y": 133.2315059174953
-      },
-      "demand": 24,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 49,
-      "location": {
-        "x": 169.56230226390426,
-        "y": 184.87182641494238
-      },
-      "demand": 23,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 50,
-      "location": {
-        "x": 163.3575829657756,
-        "y": 131.18288897769958
-      },
-      "demand": 10,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 51,
-      "location": {
-        "x": 148.75641414242804,
-        "y": 152.05235201912203
-      },
-      "demand": 12,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 52,
-      "location": {
-        "x": 178.09785078456994,
-        "y": 141.15325087410648
-      },
-      "demand": 21,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 53,
-      "location": {
-        "x": 158.8260376660094,
-        "y": 154.73000344369987
-      },
-      "demand": 14,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 54,
-      "location": {
-        "x": 113.23398629566607,
-        "y": 191.00675373592026
-      },
-      "demand": 16,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 55,
-      "location": {
-        "x": 125.32858475320532,
-        "y": 169.2795501747077
-      },
-      "demand": 26,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 56,
-      "location": {
-        "x": 146.1669028098275,
-        "y": 144.54590380818075
-      },
-      "demand": 17,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 57,
-      "location": {
-        "x": 143.6045230656936,
-        "y": 162.2246387049295
-      },
-      "demand": 11,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 58,
-      "location": {
-        "x": 133.38241010347616,
-        "y": 99.76361619608555
-      },
-      "demand": 15,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 59,
-      "location": {
-        "x": 134.15911643626276,
-        "y": 137.22609903656914
-      },
-      "demand": 10,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 60,
-      "location": {
-        "x": 161.3682684798444,
-        "y": 159.74713340205824
-      },
-      "demand": 18,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 61,
-      "location": {
-        "x": 169.67511048139292,
-        "y": 142.09483628540042
-      },
-      "demand": 12,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 62,
-      "location": {
-        "x": 118.95384831234976,
-        "y": 128.64921708660543
-      },
-      "demand": 14,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 63,
-      "location": {
-        "x": 146.71380988705286,
-        "y": 126.98009560257827
-      },
-      "demand": 14,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 64,
-      "location": {
-        "x": 123.24912266475843,
-        "y": 164.33445819452956
-      },
-      "demand": 11,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 65,
-      "location": {
-        "x": 153.3697369546797,
-        "y": 154.49013402757748
-      },
-      "demand": 30,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 66,
-      "location": {
-        "x": 154.5441793791543,
-        "y": 142.08033637975345
-      },
-      "demand": 12,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 67,
-      "location": {
-        "x": 127.93328998589894,
-        "y": 160.5417407795769
-      },
-      "demand": 21,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 68,
-      "location": {
-        "x": 171.84052872366874,
-        "y": 126.54505215767588
-      },
-      "demand": 12,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 69,
-      "location": {
-        "x": 143.72622785334843,
-        "y": 152.83836109398322
-      },
-      "demand": 23,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 70,
-      "location": {
-        "x": 149.97615324166273,
-        "y": 125.72847734482417
-      },
-      "demand": 24,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 71,
-      "location": {
-        "x": 115.37114801525168,
-        "y": 160.44408060967933
+        "x": 76.6016834476858,
+        "y": 105.08156907400341
       },
       "demand": 20,
       "ready_time": null,
@@ -790,10 +339,120 @@
       "service_time": 0
     },
     {
-      "id": 72,
+      "id": 31,
       "location": {
-        "x": 122.65486514191724,
-        "y": 144.07364991887906
+        "x": 87.62750304158072,
+        "y": 134.64810059407236
+      },
+      "demand": 13,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 32,
+      "location": {
+        "x": 71.6499858562042,
+        "y": 106.0926920158138
+      },
+      "demand": 28,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 33,
+      "location": {
+        "x": 57.63954103374073,
+        "y": 99.51228486148945
+      },
+      "demand": 22,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 34,
+      "location": {
+        "x": 42.72862796431181,
+        "y": 79.79873854239011
+      },
+      "demand": 23,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 35,
+      "location": {
+        "x": 49.715189283054684,
+        "y": 115.93584848213587
+      },
+      "demand": 29,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 36,
+      "location": {
+        "x": 67.87649632555774,
+        "y": 93.59263896064225
+      },
+      "demand": 13,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 37,
+      "location": {
+        "x": 56.48457207026949,
+        "y": 94.62765828810633
+      },
+      "demand": 30,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 38,
+      "location": {
+        "x": 53.26109994865682,
+        "y": 104.52821067758092
+      },
+      "demand": 29,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 39,
+      "location": {
+        "x": 25.197546721852714,
+        "y": 124.73081578179841
+      },
+      "demand": 23,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 40,
+      "location": {
+        "x": 86.5686866788268,
+        "y": 117.59998028231942
+      },
+      "demand": 19,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 41,
+      "location": {
+        "x": 103.16284903855238,
+        "y": 128.03545660738126
       },
       "demand": 12,
       "ready_time": null,
@@ -801,12 +460,353 @@
       "service_time": 0
     },
     {
+      "id": 42,
+      "location": {
+        "x": 122.42540263818685,
+        "y": 94.22088856911866
+      },
+      "demand": 26,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 43,
+      "location": {
+        "x": 119.2252150132643,
+        "y": 91.84871200856449
+      },
+      "demand": 23,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 44,
+      "location": {
+        "x": 104.94251587426555,
+        "y": 83.80595342557007
+      },
+      "demand": 29,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 45,
+      "location": {
+        "x": 118.70368833657278,
+        "y": 128.70879205307017
+      },
+      "demand": 24,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 46,
+      "location": {
+        "x": 148.69571381352574,
+        "y": 129.90694199033456
+      },
+      "demand": 18,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 47,
+      "location": {
+        "x": 86.93893337354945,
+        "y": 101.40134006370337
+      },
+      "demand": 21,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 48,
+      "location": {
+        "x": 86.40902344608384,
+        "y": 96.03775232954271
+      },
+      "demand": 13,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 49,
+      "location": {
+        "x": 119.05724977013448,
+        "y": 109.6370230045919
+      },
+      "demand": 24,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 50,
+      "location": {
+        "x": 136.90931775971504,
+        "y": 126.88709526527637
+      },
+      "demand": 27,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 51,
+      "location": {
+        "x": 118.7501123435878,
+        "y": 51.666105961894026
+      },
+      "demand": 30,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 52,
+      "location": {
+        "x": 128.85486672122522,
+        "y": 96.55375570480791
+      },
+      "demand": 30,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 53,
+      "location": {
+        "x": 101.66508279153327,
+        "y": 113.99742507841933
+      },
+      "demand": 20,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 54,
+      "location": {
+        "x": 151.82408443851392,
+        "y": 92.2962655421082
+      },
+      "demand": 26,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 55,
+      "location": {
+        "x": 138.4410360366498,
+        "y": 111.22361824776898
+      },
+      "demand": 12,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 56,
+      "location": {
+        "x": 80.78806238564232,
+        "y": 135.8760706479988
+      },
+      "demand": 22,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 57,
+      "location": {
+        "x": 131.9847188938989,
+        "y": 112.3054226033824
+      },
+      "demand": 28,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 58,
+      "location": {
+        "x": 115.22773217660166,
+        "y": 96.59161478847872
+      },
+      "demand": 14,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 59,
+      "location": {
+        "x": 140.27437609604925,
+        "y": 119.89524935633469
+      },
+      "demand": 29,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 60,
+      "location": {
+        "x": 150.0979715141726,
+        "y": 71.7758323876032
+      },
+      "demand": 24,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 61,
+      "location": {
+        "x": 62.71106705689492,
+        "y": 128.48086236325014
+      },
+      "demand": 15,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 62,
+      "location": {
+        "x": 75.92085218017492,
+        "y": 141.56911662920808
+      },
+      "demand": 24,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 63,
+      "location": {
+        "x": 60.17025732144554,
+        "y": 122.0754166618899
+      },
+      "demand": 12,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 64,
+      "location": {
+        "x": 59.64980491408726,
+        "y": 123.08174489805417
+      },
+      "demand": 13,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 65,
+      "location": {
+        "x": 31.723500169315002,
+        "y": 133.6560967752638
+      },
+      "demand": 19,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 66,
+      "location": {
+        "x": 71.94543111630395,
+        "y": 165.8386745044659
+      },
+      "demand": 13,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 67,
+      "location": {
+        "x": 24.214608818783205,
+        "y": 135.65733355848457
+      },
+      "demand": 29,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 68,
+      "location": {
+        "x": 82.67015104973794,
+        "y": 138.3012743530181
+      },
+      "demand": 11,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 69,
+      "location": {
+        "x": 72.36590457506685,
+        "y": 184.82411387515342
+      },
+      "demand": 30,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 70,
+      "location": {
+        "x": 27.355603221210224,
+        "y": 163.75378353598467
+      },
+      "demand": 29,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 71,
+      "location": {
+        "x": 49.017917272550186,
+        "y": 137.22019752276944
+      },
+      "demand": 27,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 72,
+      "location": {
+        "x": 94.7629991517397,
+        "y": 147.39521374982226
+      },
+      "demand": 30,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
       "id": 73,
       "location": {
-        "x": 98.46547427220001,
-        "y": 70.26016216114897
+        "x": 49.49346639687202,
+        "y": 146.69265766516088
       },
-      "demand": 16,
+      "demand": 13,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
@@ -814,10 +814,10 @@
     {
       "id": 74,
       "location": {
-        "x": 132.4679203482256,
-        "y": 90.05769493209115
+        "x": 56.923936447884124,
+        "y": 190.17799380567237
       },
-      "demand": 16,
+      "demand": 14,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
@@ -825,8 +825,8 @@
     {
       "id": 75,
       "location": {
-        "x": 121.75730754442506,
-        "y": 56.45610475922648
+        "x": 72.7211126741498,
+        "y": 145.3406751948136
       },
       "demand": 17,
       "ready_time": null,
@@ -836,10 +836,10 @@
     {
       "id": 76,
       "location": {
-        "x": 115.5444443370137,
-        "y": 44.96750766545694
+        "x": 51.29492592648171,
+        "y": 153.85563224171375
       },
-      "demand": 29,
+      "demand": 18,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
@@ -847,10 +847,10 @@
     {
       "id": 77,
       "location": {
-        "x": 128.69894146696694,
-        "y": 0.0
+        "x": 64.44469255135043,
+        "y": 155.58478808296803
       },
-      "demand": 24,
+      "demand": 18,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
@@ -858,10 +858,10 @@
     {
       "id": 78,
       "location": {
-        "x": 97.58267561416721,
-        "y": 60.252315123021944
+        "x": 48.5825118888636,
+        "y": 188.8452115514822
       },
-      "demand": 22,
+      "demand": 26,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
@@ -869,74 +869,8 @@
     {
       "id": 79,
       "location": {
-        "x": 128.9382988112124,
-        "y": 79.53218591117033
-      },
-      "demand": 15,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 80,
-      "location": {
-        "x": 110.88649794775294,
-        "y": 47.30516062848018
-      },
-      "demand": 20,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 81,
-      "location": {
-        "x": 89.97203357140903,
-        "y": 38.18046113748635
-      },
-      "demand": 23,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 82,
-      "location": {
-        "x": 100.27006783108077,
-        "y": 3.1376551638598187
-      },
-      "demand": 20,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 83,
-      "location": {
-        "x": 104.90724384593153,
-        "y": 47.00868624325515
-      },
-      "demand": 11,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 84,
-      "location": {
-        "x": 115.98875775770526,
-        "y": 34.394666364810654
-      },
-      "demand": 13,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 85,
-      "location": {
-        "x": 123.0584911773262,
-        "y": 3.482367896306563
+        "x": 57.42052859501597,
+        "y": 141.8996437252253
       },
       "demand": 24,
       "ready_time": null,
@@ -944,10 +878,10 @@
       "service_time": 0
     },
     {
-      "id": 86,
+      "id": 80,
       "location": {
-        "x": 119.73226625462314,
-        "y": 23.949413419198027
+        "x": 66.55987311282614,
+        "y": 170.60854879195966
       },
       "demand": 30,
       "ready_time": null,
@@ -955,12 +889,78 @@
       "service_time": 0
     },
     {
+      "id": 81,
+      "location": {
+        "x": 36.566260689097575,
+        "y": 40.83809963844764
+      },
+      "demand": 28,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 82,
+      "location": {
+        "x": 42.989554956543,
+        "y": 76.65552486556192
+      },
+      "demand": 18,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 83,
+      "location": {
+        "x": 38.27852815207974,
+        "y": 76.5485012773359
+      },
+      "demand": 13,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 84,
+      "location": {
+        "x": 73.4482697656699,
+        "y": 98.70446274235044
+      },
+      "demand": 21,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 85,
+      "location": {
+        "x": 52.6893133250547,
+        "y": 85.0262837488317
+      },
+      "demand": 22,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 86,
+      "location": {
+        "x": 15.90726816242022,
+        "y": 103.91760935907472
+      },
+      "demand": 18,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
       "id": 87,
       "location": {
-        "x": 99.88265337449855,
-        "y": 49.65999819514499
+        "x": 67.97002975252722,
+        "y": 65.40670070838776
       },
-      "demand": 27,
+      "demand": 19,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
@@ -968,8 +968,8 @@
     {
       "id": 88,
       "location": {
-        "x": 112.13823751055783,
-        "y": 49.706795502335815
+        "x": 27.605377513739192,
+        "y": 81.15090832460761
       },
       "demand": 19,
       "ready_time": null,
@@ -979,10 +979,10 @@
     {
       "id": 89,
       "location": {
-        "x": 111.7078973996582,
-        "y": 37.89866838280919
+        "x": 50.08441093551605,
+        "y": 104.98970080008836
       },
-      "demand": 30,
+      "demand": 15,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
@@ -990,10 +990,10 @@
     {
       "id": 90,
       "location": {
-        "x": 90.02708798071147,
-        "y": 48.39846895807797
+        "x": 60.16372847826048,
+        "y": 50.47675225653726
       },
-      "demand": 26,
+      "demand": 13,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
@@ -1001,118 +1001,8 @@
     {
       "id": 91,
       "location": {
-        "x": 67.72790578517669,
-        "y": 35.17148476570436
-      },
-      "demand": 14,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 92,
-      "location": {
-        "x": 107.75394277884166,
-        "y": 46.803538248021894
-      },
-      "demand": 10,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 93,
-      "location": {
-        "x": 125.50605635381064,
-        "y": 34.0756666955714
-      },
-      "demand": 18,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 94,
-      "location": {
-        "x": 98.21031767773486,
-        "y": 43.64882691967642
-      },
-      "demand": 24,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 95,
-      "location": {
-        "x": 125.56158270308923,
-        "y": 59.731181550769435
-      },
-      "demand": 20,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 96,
-      "location": {
-        "x": 127.18974241554534,
-        "y": 23.05535133035859
-      },
-      "demand": 10,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 97,
-      "location": {
-        "x": 57.19192985355822,
-        "y": 107.39173215027506
-      },
-      "demand": 18,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 98,
-      "location": {
-        "x": 58.75893983050412,
-        "y": 93.64851194142409
-      },
-      "demand": 23,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 99,
-      "location": {
-        "x": 79.62801527229065,
-        "y": 76.19171204252623
-      },
-      "demand": 22,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 100,
-      "location": {
-        "x": 84.42146142197923,
-        "y": 53.94188791815467
-      },
-      "demand": 20,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 101,
-      "location": {
-        "x": 61.69278825566914,
-        "y": 93.81306154209243
+        "x": 47.28753910936725,
+        "y": 48.03054946310127
       },
       "demand": 19,
       "ready_time": null,
@@ -1120,21 +1010,10 @@
       "service_time": 0
     },
     {
-      "id": 102,
+      "id": 92,
       "location": {
-        "x": 59.84158213071178,
-        "y": 126.1369800081709
-      },
-      "demand": 22,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 103,
-      "location": {
-        "x": 109.92316679867862,
-        "y": 75.74098766251488
+        "x": 45.36439154410919,
+        "y": 94.90378443653734
       },
       "demand": 30,
       "ready_time": null,
@@ -1142,65 +1021,10 @@
       "service_time": 0
     },
     {
-      "id": 104,
+      "id": 93,
       "location": {
-        "x": 82.39314135935903,
-        "y": 82.63704794032863
-      },
-      "demand": 28,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 105,
-      "location": {
-        "x": 112.2809272285194,
-        "y": 93.65023664455639
-      },
-      "demand": 22,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 106,
-      "location": {
-        "x": 78.88677051580356,
-        "y": 85.18056787908709
-      },
-      "demand": 28,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 107,
-      "location": {
-        "x": 70.8199331271602,
-        "y": 81.57172463135713
-      },
-      "demand": 18,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 108,
-      "location": {
-        "x": 95.83243649488735,
-        "y": 90.80030874389111
-      },
-      "demand": 23,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 109,
-      "location": {
-        "x": 76.60471724689859,
-        "y": 61.30693304132629
+        "x": 55.36349907672921,
+        "y": 72.97789465811681
       },
       "demand": 25,
       "ready_time": null,
@@ -1208,21 +1032,32 @@
       "service_time": 0
     },
     {
-      "id": 110,
+      "id": 94,
       "location": {
-        "x": 42.793126440044674,
-        "y": 120.32931973604713
+        "x": 52.71663530231689,
+        "y": 67.23548226226697
       },
-      "demand": 24,
+      "demand": 19,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
     },
     {
-      "id": 111,
+      "id": 95,
       "location": {
-        "x": 77.91113661764726,
-        "y": 118.58245298239612
+        "x": 63.81436452513947,
+        "y": 76.40935249182822
+      },
+      "demand": 14,
+      "ready_time": null,
+      "due_time": null,
+      "service_time": 0
+    },
+    {
+      "id": 96,
+      "location": {
+        "x": 53.151711252934206,
+        "y": 91.2196771616225
       },
       "demand": 29,
       "ready_time": null,
@@ -1230,65 +1065,10 @@
       "service_time": 0
     },
     {
-      "id": 112,
+      "id": 97,
       "location": {
-        "x": 68.14004174199582,
-        "y": 127.03118372079405
-      },
-      "demand": 21,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 113,
-      "location": {
-        "x": 55.498708594620325,
-        "y": 127.05334043935892
-      },
-      "demand": 17,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 114,
-      "location": {
-        "x": 69.9861117463066,
-        "y": 108.71336977018171
-      },
-      "demand": 25,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 115,
-      "location": {
-        "x": 32.494050722110494,
-        "y": 100.3346885362554
-      },
-      "demand": 26,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 116,
-      "location": {
-        "x": 92.5906639350626,
-        "y": 96.35301531324954
-      },
-      "demand": 12,
-      "ready_time": null,
-      "due_time": null,
-      "service_time": 0
-    },
-    {
-      "id": 117,
-      "location": {
-        "x": 67.99495568168318,
-        "y": 76.00767339133625
+        "x": 40.23818483046263,
+        "y": 101.52267601445078
       },
       "demand": 10,
       "ready_time": null,
@@ -1296,10 +1076,10 @@
       "service_time": 0
     },
     {
-      "id": 118,
+      "id": 98,
       "location": {
-        "x": 89.44706240422299,
-        "y": 114.18398650914011
+        "x": 41.76324444558597,
+        "y": 91.2158831673688
       },
       "demand": 29,
       "ready_time": null,
@@ -1307,10 +1087,10 @@
       "service_time": 0
     },
     {
-      "id": 119,
+      "id": 99,
       "location": {
-        "x": 57.37020713348611,
-        "y": 76.17962170366438
+        "x": 25.82330789417061,
+        "y": 81.1786390730414
       },
       "demand": 29,
       "ready_time": null,
@@ -1318,12 +1098,12 @@
       "service_time": 0
     },
     {
-      "id": 120,
+      "id": 100,
       "location": {
-        "x": 83.46067437879232,
-        "y": 87.93847228933484
+        "x": 40.06066835520976,
+        "y": 69.02690980633837
       },
-      "demand": 16,
+      "demand": 11,
       "ready_time": null,
       "due_time": null,
       "service_time": 0
@@ -1332,6 +1112,6 @@
   "vehicle_capacity": 200,
   "max_vehicles": null,
   "distance_matrix": null,
-  "seed": 2002,
+  "seed": 10001,
   "num_clusters": 5
 }

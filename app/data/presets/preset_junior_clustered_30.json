@@ -1,8 +1,8 @@
 {
   "id": "preset_junior_clustered_30",
   "type": "preset",
-  "name": "Junior Clustered",
-  "description": "Clustered instance representing neighborhood delivery (3 zones).",
+  "name": "Junior Clustered - 30 customers (3 zones)",
+  "description": "Clustered instance representing neighborhood delivery (30 customers, 3 zones)",
   "depot": {
     "x": 50.0,
     "y": 50.0

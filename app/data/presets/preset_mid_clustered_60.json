@@ -1,8 +1,8 @@
 {
   "id": "preset_mid_clustered_60",
   "type": "preset",
-  "name": "Mid Clustered",
-  "description": "Clustered instance for multi-district delivery (4 zones).",
+  "name": "Mid Clustered - 60 customers (4 districts)",
+  "description": "Clustered instance for multi-district delivery (60 customers, 4 districts)",
   "depot": {
     "x": 75.0,
     "y": 75.0
