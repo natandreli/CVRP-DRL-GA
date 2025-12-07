@@ -311,7 +311,9 @@ class StatisticalAnalyzer:
                 ),
                 "t_statistic": float(t_stat),
                 "p_value": float(p_value),
-                "is_specialized": bool(p_value < 0.05 and in_range_mean < out_range_mean),
+                "is_specialized": bool(
+                    p_value < 0.05 and in_range_mean < out_range_mean
+                ),
             }
 
         # Print results
