@@ -180,7 +180,9 @@ def delete_instance(instance_id: str, session_id: str | None = None) -> bool:
 
 
 def generate_random_instance(
-    params: GenerateRandomInstanceRequest, session_id: str | None = None
+    params: GenerateRandomInstanceRequest,
+    session_id: str | None = None,
+    save: bool = True,
 ) -> CVRPInstance:
     """
     Generate a random CVRP instance based on the provided parameters.
@@ -188,6 +190,7 @@ def generate_random_instance(
     Args:
         params: Parameters for generating the random instance
         session_id: Optional session identifier for isolation
+        save: Whether to save the instance to disk (default: True)
 
     Returns:
         CVRPInstance: Generated CVRP instance
@@ -234,13 +237,16 @@ def generate_random_instance(
         seed=params.seed,
     )
 
-    save_instance(instance, session_id=session_id)
+    if save:
+        save_instance(instance, session_id=session_id)
 
     return instance
 
 
 def generate_clustered_instance(
-    params: GenerateClusteredInstanceRequest, session_id: str | None = None
+    params: GenerateClusteredInstanceRequest,
+    session_id: str | None = None,
+    save: bool = True,
 ) -> CVRPInstance:
     """
     Generate a clustered CVRP instance based on the provided parameters.
@@ -248,6 +254,7 @@ def generate_clustered_instance(
     Args:
         params: Parameters for generating the clustered instance
         session_id: Optional session identifier for isolation
+        save: Whether to save the instance to disk (default: True)
 
     Returns:
         CVRPInstance: Generated CVRP instance
@@ -334,7 +341,8 @@ def generate_clustered_instance(
         num_clusters=params.num_clusters,
     )
 
-    save_instance(instance, session_id=session_id)
+    if save:
+        save_instance(instance, session_id=session_id)
 
     return instance
 
