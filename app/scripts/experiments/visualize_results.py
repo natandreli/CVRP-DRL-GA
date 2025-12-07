@@ -1,3 +1,10 @@
+"""
+Generate publication-ready figures and tables from experimental results.
+
+Usage:
+    python -m app.scripts.experiments.visualize_results --results_dir <path_to_results> --output_dir <path_to_output>
+"""
+
 import argparse
 import json
 import sys
@@ -833,7 +840,6 @@ def create_paper_figures(results_dir: str) -> None:
     print("\nTables ready for paper:")
     print("  • latex_tables.tex              - All 4 LaTeX tables")
     print("  • tables_summary.txt            - Text preview of tables")
-    print("\nTable 2 includes initialization time breakdown as requested!")
 
 
 def main():
