@@ -1,0 +1,66 @@
+% Table 1: Aggregated Results by Configuration and Range
+\begin{table}[htbp]
+\centering
+\caption{Mean Final Cost (± Std Dev) by Configuration and Instance Range}
+\label{tab:results_by_range}
+\begin{tabular}{lcccc}
+\toprule
+Configuration & Junior (20-50) & Mid (60-100) & Expert (110-150) & Global \\
+\midrule
+GA Pure & 569.4±281.3 & 1521.5±545.7 & 2916.8±817.4 & 1669.3 \\
+DRL-Junior + GA & 432.3±190.3 & 980.2±312.8 & 1596.5±382.6 & 1003.0 \\
+DRL-Mid + GA & 428.6±180.5 & 943.0±287.3 & 1555.9±355.4 & 975.8 \\
+DRL-Expert + GA & 470.2±195.4 & 1015.3±295.9 & 1634.6±381.9 & 1040.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 2: Improvement Gap, Convergence, and Computation Time
+\begin{table}[htbp]
+\centering
+\caption{Evolution Metrics: Gap, Convergence Speed, and Time Breakdown}
+\label{tab:evolution_metrics}
+\begin{tabular}{lcccccc}
+\toprule
+Configuration & Gap (\%) & Gen. Conv. & Init. Time (s) & Evol. Time (s) & Total (s) \\
+\midrule
+GA Pure & 43.2±6.3 & 37±21 & 0.1 & 8.8 & 8.9 \\
+DRL-Junior + GA & 21.4±7.1 & 38±23 & 149.7 & 9.0 & 158.6 \\
+DRL-Mid + GA & 20.1±7.2 & 39±22 & 146.9 & 8.9 & 155.9 \\
+DRL-Expert + GA & 21.2±7.8 & 40±21 & 142.9 & 8.9 & 151.9 \\
+\bottomrule
+\multicolumn{6}{l}{\footnotesize Gap: \% improvement from P0 to final; Gen. Conv.: generations until stagnation} \\
+\multicolumn{6}{l}{\footnotesize Init. Time: time to generate P0; Evol. Time: GA evolution time} \\
+\end{tabular}
+\end{table}
+
+% Table 3: Agent Specialization Matrix (Mean Final Cost)
+\begin{table}[htbp]
+\centering
+\caption{Agent Specialization Matrix: Mean Final Cost by Agent and Instance Range}
+\label{tab:specialization_matrix}
+\begin{tabular}{lccc}
+\toprule
+Agent/Range & Junior (20-50) & Mid (60-100) & Expert (110-150) \\
+\midrule
+DRL-Junior & \textbf{432.3} & 980.2 & 1596.5 \\
+DRL-Mid & 428.6 & \textbf{943.0} & 1555.9 \\
+DRL-Expert & 470.2 & 1015.3 & \textbf{1634.6} \\
+\bottomrule
+\multicolumn{4}{l}{\footnotesize Bold values indicate expected specialization (agent in its training range)} \\
+\end{tabular}
+\end{table}
+
+% Table 4: Statistical Significance Tests
+\begin{table}[htbp]
+\centering
+\caption{Statistical Significance Tests}
+\label{tab:statistical_tests}
+\begin{tabular}{lcc}
+\toprule
+Test & Statistic & p-value \\
+\midrule
+\bottomrule
+\multicolumn{3}{l}{\footnotesize *** p<0.001, ** p<0.01, * p<0.05, ns: not significant} \\
+\end{tabular}
+\end{table}
