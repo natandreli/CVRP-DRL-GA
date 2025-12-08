@@ -498,6 +498,26 @@ def figure4_cost_benefit_analysis(
 
         x = np.arange(len(config_labels))
 
+        ax.bar(
+            x,
+            init_times,
+            color="#FFE66D",
+            alpha=0.85,
+            edgecolor="black",
+            linewidth=1.5,
+            label="Initialization Time",
+        )
+        ax.bar(
+            x,
+            evol_times,
+            bottom=init_times,
+            color="#4ECDC4",
+            alpha=0.85,
+            edgecolor="black",
+            linewidth=1.5,
+            label="Evolution Time",
+        )
+
         for i, (init, evol) in enumerate(zip(init_times, evol_times)):
             total = init + evol
             if init > 0.3:
