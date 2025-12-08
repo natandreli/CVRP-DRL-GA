@@ -213,6 +213,101 @@ uv run python -m app.scripts.drl.train_expert
 
 Trained models are saved in `app/core/drl/checkpoints/`
 
+## 🧪 Experimental Validation
+
+The project includes a complete experimental framework for systematic validation of the hybrid DRL-GA approach.
+
+### Experimental Dataset
+
+Pre-generated instances are located in `app/data/experiment_instances/`:
+
+- **Junior Range**: 20-50 customers (4 sizes: 20, 30, 40, 50)
+- **Mid Range**: 60-100 customers (4 sizes: 60, 75, 90, 100)  
+- **Expert Range**: 110-150 customers (4 sizes: 110, 125, 140, 150)
+
+Each size includes:
+- 5 random distribution instances
+- 5 clustered distribution instances
+- **Total: 120 instances** (12 sizes × 10 instances)
+
+### Running Experiments
+
+#### 1. Generate New Experimental Instances (Optional)
+
+If you want to regenerate the dataset with different seeds or parameters:
+
+```bash
+python -m app.scripts.experiments.generate_experiment_instances
+```
+
+This creates stratified synthetic instances with controlled characteristics for systematic evaluation.
+
+#### 2. Run Experiments
+
+Execute the complete experimental protocol:
+
+```bash
+# Full experiments (2,400 runs - takes several hours)
+python -m app.scripts.experiments.run_experiments
+
+# Quick test mode (80 runs - ~15 minutes)
+python -m app.scripts.experiments.run_experiments --quick
+
+# Run specific range only
+python -m app.scripts.experiments.run_experiments --range junior
+python -m app.scripts.experiments.run_experiments --range mid
+python -m app.scripts.experiments.run_experiments --range expert
+
+# Run specific configuration only
+python -m app.scripts.experiments.run_experiments --config ga_pure
+python -m app.scripts.experiments.run_experiments --config drl_junior_ga
+python -m app.scripts.experiments.run_experiments --config drl_mid_ga
+python -m app.scripts.experiments.run_experiments --config drl_expert_ga
+```
+
+**Configurations evaluated:**
+- `ga_pure`: Pure Genetic Algorithm (random initialization)
+- `drl_junior_ga`: DRL-Junior + GA hybrid
+- `drl_mid_ga`: DRL-Mid + GA hybrid
+- `drl_expert_ga`: DRL-Expert + GA hybrid
+
+Results are saved in `app/data/experiment_results/experiments_YYYYMMDD_HHMMSS/`
+
+#### 3. Visualize Results
+
+Generate publication-ready figures and LaTeX tables:
+
+```bash
+# Visualize most recent experiment
+python -m app.scripts.experiments.visualize_results
+
+# Visualize specific experiment
+python -m app.scripts.experiments.visualize_results app\data\experiment_results\experiments_20251207_212609
+```
+
+**Generated outputs:**
+- `figure1_h1_validation.png` - H1: DRL improves solution quality
+- `figure2_h2_specialization.png` - H2: Agent specialization analysis
+- `figure3_convergence.png` - Convergence behavior by range
+- `figure4_cost_benefit.png` - Computational cost-benefit analysis
+- `latex_tables.tex` - Four publication-ready LaTeX tables
+- `tables_summary.txt` - Text preview of tables
+
+### Experimental Design
+
+The experiments validate two main hypotheses:
+
+**H1: DRL Initialization Improves Solution Quality**
+- DRL-initialized populations consistently outperform random initialization
+- Measured across all instance ranges and configurations
+
+**H2: Specialized Agents Perform Best in Their Training Range**
+- Junior agent excels in small instances (20-50 customers)
+- Mid agent excels in medium instances (60-100 customers)
+- Expert agent excels in large instances (110-150 customers)
+
+Each instance-configuration pair is replicated 5 times with different seeds for statistical validity (2 replicates in quick mode).
+
 ## 📡 API Endpoints
 
 ### Instances
