@@ -4,6 +4,8 @@ A hybrid solver for the Capacitated Vehicle Routing Problem (CVRP) combining Dee
 
 ## 📋 About the Problem
 
+[Final Document Here](NeuroGen__Una_Metaheurística_Híbrida_basada_en_Aprendizaje_por_Refuerzo_Profundo_y_Algoritmos_Genéticos_para_el_CVRP.pdf)
+
 The **Capacitated Vehicle Routing Problem (CVRP)** is a classic optimization problem in operations research and logistics. Given a set of customers with known demands and a fleet of vehicles with limited capacity, the goal is to:
 
 - Design optimal routes starting and ending at a central depot
