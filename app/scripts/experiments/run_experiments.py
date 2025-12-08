@@ -21,8 +21,8 @@ Options:
 
 import argparse
 from datetime import datetime
-from pathlib import Path
 
+from app.config import settings
 from app.core.experiments.experiment_runner import ExperimentRunner
 from app.core.experiments.result_collector import ResultCollector
 from app.schemas import GAConfig
@@ -69,7 +69,7 @@ def run_experiments(
 
     # Create output directory
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_dir = Path(f"results/experiments_{timestamp}")
+    output_dir = settings.EXPERIMENT_RESULTS_DIR / f"experiments_{timestamp}"
     output_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"Output directory: {output_dir}\n")
@@ -197,8 +197,6 @@ def run_experiments(
 
     print(f"\nEnd time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"\nResults saved to: {output_dir}")
-    print("\nTo analyze results, run:")
-    print(f"  python -m app.scripts.experiments.analyze_results {output_dir}")
 
 
 def main():

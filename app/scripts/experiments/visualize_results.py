@@ -15,6 +15,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
+from app.config import settings
+
 sns.set_theme(style="whitegrid", context="paper")
 plt.rcParams["figure.dpi"] = 300
 plt.rcParams["savefig.dpi"] = 300
@@ -506,8 +508,14 @@ def figure4_cost_benefit_analysis(
                     ha="center",
                     va="center",
                     fontweight="bold",
-                    fontsize=9,
-                    color="black",
+                    fontsize=10,
+                    color="white",
+                    bbox=dict(
+                        boxstyle="round,pad=0.3",
+                        facecolor="black",
+                        alpha=0.7,
+                        edgecolor="none",
+                    ),
                 )
             if evol > 0.3:
                 ax.text(
@@ -517,8 +525,14 @@ def figure4_cost_benefit_analysis(
                     ha="center",
                     va="center",
                     fontweight="bold",
-                    fontsize=9,
+                    fontsize=10,
                     color="white",
+                    bbox=dict(
+                        boxstyle="round,pad=0.3",
+                        facecolor="black",
+                        alpha=0.7,
+                        edgecolor="none",
+                    ),
                 )
             ax.text(
                 i,
@@ -808,7 +822,7 @@ def create_paper_figures(results_dir: str) -> None:
         print(f"Error loading results: {e}")
         return
 
-    figures_dir = results_path / "paper_figures"
+    figures_dir = results_path / "figures"
     figures_dir.mkdir(exist_ok=True)
 
     print("Creating figures...\n")
@@ -854,7 +868,7 @@ def main():
     args = parser.parse_args()
 
     if args.results_dir is None:
-        results_base = Path("results")
+        results_base = settings.EXPERIMENT_RESULTS_DIR
 
         if not results_base.exists():
             print("Error: No results directory found")

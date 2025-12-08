@@ -5,6 +5,7 @@ from app.api.routers.instances.payload_schemas import (
     GenerateClusteredInstanceRequest,
     GenerateRandomInstanceRequest,
 )
+from app.config import settings
 from app.core.operations.instances import (
     generate_clustered_instance,
     generate_random_instance,
@@ -54,7 +55,7 @@ def generate_experiment_instances():
         },
     }
 
-    base_output_dir = Path("app/data/experiment_instances")
+    base_output_dir = settings.EXPERIMENT_INSTANCES_DIR
     total_instances = 0
 
     # Generate instances for each range
@@ -98,7 +99,7 @@ def generate_experiment_instances():
                     seed=seed,
                 )
 
-                instance = generate_random_instance(request)
+                instance = generate_random_instance(request, save=False)
 
                 # Save instance
                 save_instance(instance, range_dir, instance_name)
@@ -123,7 +124,7 @@ def generate_experiment_instances():
                     seed=seed,
                 )
 
-                instance = generate_clustered_instance(request)
+                instance = generate_clustered_instance(request, save=False)
 
                 # Save instance
                 save_instance(instance, range_dir, instance_name)
@@ -199,7 +200,7 @@ def get_all_instances(range_name: str = None) -> list[tuple[str, CVRPInstance]]:
     Returns:
         List of tuples (instance_name, instance_object)
     """
-    base_dir = Path("app/data/experiment_instances")
+    base_dir = settings.EXPERIMENT_INSTANCES_DIR
     instances = []
 
     ranges = [range_name] if range_name else ["junior", "mid", "expert"]
