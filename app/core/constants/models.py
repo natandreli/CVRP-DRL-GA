@@ -9,18 +9,23 @@ MODELS = {
             "Ideal for dynamic environments requiring quick adaptation."
         ),
         "training_summary": (
-            "Trained over 4,000 episodes using an Actor-Critic architecture with Pointer Networks. "
+            "Trained over 6,000 episodes using an Actor-Critic architecture with Pointer Networks. "
             "The training strategy utilized a 60/40 split between random and clustered instances "
             "to ensure robustness against unpredictable delivery locations while learning neighborhood patterns. "
-            "Validation was performed against a graduated benchmark set (15-50 nodes) to ensure generalization capability across the full difficulty range."
+            "Validation was performed every 100 episodes against a graduated benchmark set of 20 instances (10 random + 10 clustered) "
+            "spanning sizes 15-50 customers to ensure generalization capability across the full difficulty range."
         ),
         "training_specs": {
             "algorithm": "Actor-Critic with Pointer Network",
-            "total_episodes": 4000,
+            "total_episodes": 6000,
             "instance_distribution": "60% Random / 40% Clustered",
             "problem_size": "15-50 Customers",
-            "learning_strategy": "Fast learning rate with moderate exploration decay (0.9996)",
-            "validation_method": "Greedy evaluation on graduated benchmark set (15-50 nodes)",
+            "vehicle_capacity": "80-100 units",
+            "learning_rate": "Actor: 1e-3, Critic: 5e-4",
+            "epsilon_decay": "0.9995 (moderate exploration decay)",
+            "validation_set": "20 instances (10 random + 10 clustered)",
+            "validation_frequency": "Every 100 episodes",
+            "checkpoints": "Every 1,000 episodes",
         },
     },
     "mid": {
@@ -33,19 +38,23 @@ MODELS = {
             "regional delivery patterns."
         ),
         "training_summary": (
-            "Trained over 6,000 episodes using an Actor-Critic architecture with Pointer Networks. "
-            "The training utilized a 50/50 split between random and clustered instances to capture "
-            "diverse regional layouts. Crucially, validation was performed against a comprehensive "
-            "benchmark set spanning the entire problem size range (40 to 100 customers) to ensure "
-            "consistent performance across all difficulty levels."
+            "Trained over 10,000 episodes using an Actor-Critic architecture with Pointer Networks. "
+            "The training utilized a balanced 50/50 split between random and clustered instances to capture "
+            "diverse regional layouts and delivery patterns. Validation was performed every 100 episodes against "
+            "a comprehensive benchmark set of 20 instances (10 random + 10 clustered) spanning the entire problem "
+            "size range (40-100 customers) to ensure consistent performance across all difficulty levels."
         ),
         "training_specs": {
             "algorithm": "Actor-Critic with Pointer Network",
-            "total_episodes": 6000,
+            "total_episodes": 10000,
             "instance_distribution": "50% Random / 50% Clustered",
             "problem_size": "40-100 Customers",
-            "learning_strategy": "Moderate learning rate with slower exploration decay (0.9998)",
-            "validation_method": "Greedy evaluation on graduated benchmark set (40-100 nodes)",
+            "vehicle_capacity": "120-180 units",
+            "learning_rate": "Actor: 4e-4, Critic: 2e-4",
+            "epsilon_decay": "0.9997 (slower exploration decay for better learning)",
+            "validation_set": "20 instances (10 random + 10 clustered)",
+            "validation_frequency": "Every 100 episodes",
+            "checkpoints": "Every 1,500 episodes",
         },
     },
     "expert": {
@@ -53,21 +62,28 @@ MODELS = {
         "subname": "Industrial-Scale Logistics",
         "description": (
             "Tailored for large-scale logistics operations such as those of Amazon Prime, "
-            "handling extensive delivery networks with 80-150 customers and vehicle capacities of 180-250. "
+            "handling extensive delivery networks with 100-150 customers and vehicle capacities of 200-250. "
             "Designed for complex, multi-regional distribution requiring advanced route optimization."
         ),
         "training_summary": (
-            "Trained over 8,000 episodes using an Actor-Critic architecture with Pointer Networks. "
-            "The training incorporated a 20/80 split between random and clustered instances to capture both broad and localized delivery patterns. "
-            "Validation was performed on a comprehensive graduated benchmark set (80-150 nodes) to ensure high scalability and efficiency."
+            "Trained over 25,000 episodes using an Actor-Critic architecture with Pointer Networks and curriculum learning. "
+            "The training incorporated a 20/80 split between random and clustered instances to reflect real-world urban delivery patterns. "
+            "Used a 3-phase curriculum: Phase 1 (50-90 customers), Phase 2 (80-120 customers), and Phase 3 (100-150 customers). "
+            "Validation was performed every 100 episodes against a weighted benchmark set of 24 instances (8 random + 16 clustered) "
+            "maintaining a 1:2 ratio to reflect realistic deployment scenarios, spanning 100-150 customers."
         ),
         "training_specs": {
-            "algorithm": "Actor-Critic with Pointer Network",
-            "total_episodes": 8000,
-            "instance_distribution": "20% Random / 80% Clustered",
-            "problem_size": "80-150 Customers",
-            "learning_strategy": "Slow learning rate with minimal exploration decay (0.9999)",
-            "validation_method": "Greedy evaluation on graduated benchmark set (80-150 nodes)",
+            "algorithm": "Actor-Critic with Pointer Network + Curriculum Learning",
+            "total_episodes": 25000,
+            "instance_distribution": "20% Random / 80% Clustered (realistic ratio)",
+            "problem_size": "100-150 Customers",
+            "vehicle_capacity": "200-250 units",
+            "learning_rate": "Actor: 3e-4, Critic: 1e-5 (conservative for stability)",
+            "epsilon_decay": "0.99985 (very slow decay for thorough exploration)",
+            "curriculum_phases": "3 phases: 50-90, 80-120, 100-150 customers",
+            "validation_set": "24 instances (8 random + 16 clustered, 1:2 ratio)",
+            "validation_frequency": "Every 100 episodes",
+            "checkpoints": "Every 5,000 episodes",
         },
     },
 }
