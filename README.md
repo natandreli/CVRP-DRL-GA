@@ -39,23 +39,27 @@ This project implements three different solving strategies:
 
 ```
 app/
-├── api/                  # REST API endpoints
+├── api/                       # REST API endpoints
 │   └── routers/
-│       ├── drl/          # DRL model handlers
-│       ├── instances/    # Instance handlers
-│       └── solve/        # Solving handlers
-├── core/                 # Core algorithms
-│   ├── drl/              # Deep RL implementation (Pointer Networks)
-│   ├── ga/               # Genetic Algorithm implementation
-│   ├── operations/       # Business logic
-│   └── utils/            # Helper functions
+│       ├── drl/               # DRL model handlers
+│       ├── instances/         # Instance handlers
+│       └── solve/             # Solving handlers
+├── core/                      # Core algorithms
+│   ├── drl/                   # Deep RL implementation (Pointer Networks)
+│   ├── experiments/           # Experimental framework (runners, collectors)
+│   ├── ga/                    # Genetic Algorithm implementation
+│   ├── operations/            # Business logic
+│   └── utils/                 # Helper functions
 ├── data/
-│   └── presets/          # Pre-configured CVRP instances
-├── instances/            # Stored user generated CVRP intances
-├── schemas/              # Pydantic data models
+│   ├── experiment_instances/  # Experimental dataset (120 stratified instances)
+│   ├── experiment_results/    # Experimental results and analysis
+│   └── presets/               # Pre-configured CVRP instances
+├── instances/                 # Stored user generated CVRP instances
+├── schemas/                   # Pydantic data models
 └── scripts/              
-    ├── drl/              # Training scripts for DRL models
-    └── presets/          # Script for generate the presets (Pre-configured CVRP intances)
+    ├── drl/                   # Training scripts for DRL models
+    ├── experiments/           # Experimental execution and visualization
+    └── presets/               # Script for generate the presets
 ```
 
 ## 🚀 Getting Started
