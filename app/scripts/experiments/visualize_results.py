@@ -158,7 +158,7 @@ def figure1_hypothesis_h1_validation(
         ax.grid(axis="y", alpha=0.3, linestyle="--")
 
     plt.suptitle(
-        "Figure 1: H1 Validation - DRL Initialization Improves Solution Quality\n"
+        "H1 Validation - DRL Initialization Improves Solution Quality\n"
         + "All DRL Configurations Outperform Random Initialization Across All Ranges",
         fontsize=13,
         fontweight="bold",
@@ -316,7 +316,7 @@ def figure2_hypothesis_h2_specialization(
         ax.set_ylim(0, max(costs) * 1.15)
 
     plt.suptitle(
-        "Figure 2: H2 Validation - Agent Specialization Analysis\n"
+        "H2 Validation - Agent Specialization Analysis\n"
         + "Comparing All Agents in Each Instance Range",
         fontsize=14,
         fontweight="bold",
@@ -425,7 +425,7 @@ def figure3_convergence_by_range(
         ax.grid(True, alpha=0.3, linestyle="--")
 
     plt.suptitle(
-        "Figure 3: Convergence Behavior - DRL Initialization Provides Better Starting Point",
+        "Convergence Behavior - DRL Initialization Provides Better Starting Point",
         fontsize=14,
         fontweight="bold",
         y=1.02,
@@ -576,7 +576,7 @@ def figure4_cost_benefit_analysis(
         ax.grid(axis="y", alpha=0.3, linestyle="--")
 
     plt.suptitle(
-        "Figure 4: Initialization Time Analysis - DRL Overhead vs Evolution Benefit\n"
+        "Initialization Time Analysis - DRL Overhead vs Evolution Benefit\n"
         + "DRL Adds Initialization Cost but Maintains Similar Evolution Time",
         fontsize=13,
         fontweight="bold",
