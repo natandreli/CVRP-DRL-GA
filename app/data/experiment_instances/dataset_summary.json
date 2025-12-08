@@ -1,0 +1,35 @@
+{
+  "total_instances": 120,
+  "ranges": {
+    "junior": {
+      "sizes": [
+        20,
+        30,
+        40,
+        50
+      ],
+      "instances_per_size": 10,
+      "total_instances": 40
+    },
+    "mid": {
+      "sizes": [
+        60,
+        75,
+        90,
+        100
+      ],
+      "instances_per_size": 10,
+      "total_instances": 40
+    },
+    "expert": {
+      "sizes": [
+        110,
+        125,
+        140,
+        150
+      ],
+      "instances_per_size": 10,
+      "total_instances": 40
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "total_runs": 2400,
+  "configurations": {
+    "ga_pure": {
+      "total_runs": 600,
+      "avg_final_cost": 1669.2507488794888,
+      "avg_improvement_gap": 43.23154274250703,
+      "avg_total_time": 8.91836701075236,
+      "avg_generations_to_convergence": 37.390243902439025
+    },
+    "drl_junior_ga": {
+      "total_runs": 600,
+      "avg_final_cost": 1003.0162654804145,
+      "avg_improvement_gap": 21.43964612616868,
+      "avg_total_time": 158.63724764664968,
+      "avg_generations_to_convergence": 38.23348017621145
+    },
+    "drl_mid_ga": {
+      "total_runs": 600,
+      "avg_final_cost": 975.827362409756,
+      "avg_improvement_gap": 20.085997643209513,
+      "avg_total_time": 155.8711893928051,
+      "avg_generations_to_convergence": 39.15966386554622
+    },
+    "drl_expert_ga": {
+      "total_runs": 600,
+      "avg_final_cost": 1040.0005980754806,
+      "avg_improvement_gap": 21.227970724166912,
+      "avg_total_time": 151.85573169032733,
+      "avg_generations_to_convergence": 40.315555555555555
+    }
+  }
+}
