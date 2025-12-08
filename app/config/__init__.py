@@ -22,6 +22,8 @@ class Settings(BaseSettings):
     INSTANCES_DIR: Path = BASE_DIR / "app" / "instances"  # User-generated (temporary)
     PRESETS_DIR: Path = BASE_DIR / "app" / "data" / "presets"  # Predefined (permanent)
     CHECKPOINTS_DIR: Path = BASE_DIR / "app" / "core" / "drl" / "checkpoints"
+    EXPERIMENT_INSTANCES_DIR: Path = BASE_DIR / "app" / "data" / "experiment_instances"
+    EXPERIMENT_RESULTS_DIR: Path = BASE_DIR / "app" / "data" / "experiment_results"
 
     # DRL Settings
     DRL_DEVICE: str = "cpu"  # "cuda" if gpu is available else "cpu"
