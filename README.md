@@ -2,6 +2,8 @@
 
 A hybrid solver for the Capacitated Vehicle Routing Problem (CVRP) combining Deep Reinforcement Learning (DRL) with Genetic Algorithms (GA).
 
+https://github.com/user-attachments/assets/92f04f63-2136-466d-8897-fc58534012d0
+
 ## 📋 About the Problem
 
 [Final Document Here](https://github.com/natandreli/CVRP-DRL-GA-backend/blob/main/%5BNeuroGen%5D%20Una%20Metaheur%C3%ADstica%20H%C3%ADbrida%20basada%20en%20Aprendizaje%20por%20Refuerzo%20Profundo%20y%20Algoritmos%20Gen%C3%A9ticos%20para%20el%20CVRP.pdf)
